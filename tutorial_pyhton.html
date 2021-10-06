@@ -14338,7 +14338,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="A-continuaci&#243;n-vamos-a-trabajar-con-el-PET">A continuaci&#243;n vamos a trabajar con el PET<a class="anchor-link" href="#A-continuaci&#243;n-vamos-a-trabajar-con-el-PET">&#182;</a></h2>
+<h2 id="Trabajo-con-PET">Trabajo con PET<a class="anchor-link" href="#Trabajo-con-PET">&#182;</a></h2>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -14518,7 +14518,7 @@ tamaño del voxel: (2.734375, 2.734375, 3.2700043)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Por último, mostraremos unas slices de la PET que hemos cargado.</p>
+<p>Por último, mostraremos unas slices del PET que hemos cargado.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14568,7 +14568,7 @@ tamaño del voxel: (2.734375, 2.734375, 3.2700043)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>En primer lugar, debemos cargar el archivo tal y como hemos hecho con la PET.</p>
+<p>En primer lugar, debemos cargar el archivo tal y como hemos hecho con el PET.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14662,7 +14662,7 @@ tamaño del voxel: (1.2, 1.0547, 1.0547)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Como podemos observar, el T1 tiene más resolución que la PET, y por lo tanto, para un mismo volumen, usa voxels más pequeños.</p>
+<p>Como podemos observar, el T1 tiene más resolución que el PET, y por lo tanto, para un mismo volumen, usa voxels más pequeños.</p>
 
 </div>
 </div>
@@ -14760,6 +14760,11 @@ tamaño del voxel: (1.2, 1.0547, 1.0547)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Trabajo-con-la-m&#225;scara">Trabajo con la m&#225;scara<a class="anchor-link" href="#Trabajo-con-la-m&#225;scara">&#182;</a></h2>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Por último, vamos a ver el contenido de la máscara</p>
 
 </div>
@@ -14849,6 +14854,12 @@ tamaño del voxel: (1.2, 1.0547, 1.0547)
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>A continuación, vamos a usar la máscara para obtener los valores de intensidad del T1 para los voxels que esta representa.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -14894,7 +14905,7 @@ tamaño del voxel: (1.2, 1.0547, 1.0547)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>A continuación mostramos el histograma de los distintos valores que presenta la máscara.</p>
+<p>A continuación mostramos el histograma de los distintos valores intensidad que presenta la región seleccionada por la máscara.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14940,7 +14951,13 @@ tamaño del voxel: (1.2, 1.0547, 1.0547)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Pasamos-a-trabajar-con-el-atlas">Pasamos a trabajar con el atlas<a class="anchor-link" href="#Pasamos-a-trabajar-con-el-atlas">&#182;</a></h2>
+<h2 id="Trabajo-con-el-Atlas">Trabajo con el Atlas<a class="anchor-link" href="#Trabajo-con-el-Atlas">&#182;</a></h2>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Cargamos el atlas y sus datos</p>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14985,18 +15002,18 @@ tamaño del voxel: (1.2, 1.0547, 1.0547)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Como los tags del atlas en realidad son valores discretos, en este caso plantearemos un grafico de barras.</p>
+<p>Vamos a proceder a realizar un contaje de la cantidad de voxels que aparecen en las distinas ROI del atlas. Como los tags del atlas en realidad son valores discretos, en este caso plantearemos un grafico de barras.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">differents</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">atlas_data</span><span class="p">)</span>
-<span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">t1_data</span><span class="p">[</span><span class="n">atlas_data</span><span class="o">==</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">differents</span><span class="p">}</span>
-<span class="n">count</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">differents</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">differents</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">atlas_data</span><span class="p">)</span>  <span class="c1"># Nos quedamos con todos los tags diferentes del atlas</span>
+<span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">t1_data</span><span class="p">[</span><span class="n">atlas_data</span><span class="o">==</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">differents</span><span class="p">}</span>  <span class="c1"># Creamos un diccionario con los tags como claves y los datos de la imagen como valores</span>
+<span class="n">count</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nb">dict</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">differents</span><span class="p">}</span>   <span class="c1"># Miramos cuantos datos hay por cada tag</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">differents</span><span class="p">,</span> <span class="n">count</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -15126,7 +15143,7 @@ tamaño del voxel: (1.2, 1.0547, 1.0547)
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Podemos hacer lo mismo superponiendo la PET a la T1 y disminuyendo su transparencia.</p>
-<p>Sin embargo, como podemos ver, debemos aplicar una corrección en el sistema de coordenadas.</p>
+<p>Sin embargo, como podemos ver, debemos aplicar una corrección en el sistema de coordenadas (Queda pendiente).</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -15171,7 +15188,7 @@ tamaño del voxel: (1.2, 1.0547, 1.0547)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>En este caso, vamos a aplicar la disminución de transparencia a la vez que un threshold de manera que solo nos muestre los puntos de la PET donde el valor de intensidad es superior a 2000.</p>
+<p>En este caso, vamos a aplicar la disminución de transparencia a la vez que un threshold de manera que solo nos muestre los puntos del PET donde el valor de intensidad es superior a 2000.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
