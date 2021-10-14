@@ -1,0 +1,1 @@
+mris_sphere -rusage /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/WM/s2/FTD-FPD109/touch/rusage.mris_sphere.lh.dat -seed 1234 ../surf/lh.inflated ../surf/lh.sphere

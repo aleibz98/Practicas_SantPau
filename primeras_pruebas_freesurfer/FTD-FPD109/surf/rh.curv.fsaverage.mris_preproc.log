@@ -1,0 +1,92 @@
+mié abr  4 07:14:47 CEST 2018
+setenv SUBJECTS_DIR /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/WM/s2
+cd /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/WM/s2/FTD-FPD109/surf
+/usr/local/freesurfer6/bin/mris_preproc --s FTD-FPD109 --hemi rh --meas curv --target fsaverage --out rh.curv.fsaverage.mgh
+
+Linux neuroimagen0 4.13.0-37-generic #42~16.04.1-Ubuntu SMP Wed Mar 7 16:03:28 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+$Id: mris_preproc,v 1.76.2.1 2016/08/12 17:55:45 zkaufman Exp $
+freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0-2beb96c
+tmpdir is ./tmp.mris_preproc.8187
+Src rh sphere.reg
+Trg rh sphere.reg
+
+
+
+
+---------------------------------------------------
+#@# 1/1 FTD-FPD109 mié abr  4 07:14:47 CEST 2018 --------------
+-----------------------
+mri_surf2surf --srcsubject FTD-FPD109 --srchemi rh --srcsurfreg sphere.reg --trgsubject fsaverage --trghemi rh --trgsurfreg sphere.reg --tval ./tmp.mris_preproc.8187/FTD-FPD109.1.mgh --sval /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/WM/s2/FTD-FPD109/surf/rh.curv --sfmt curv --noreshape --cortex
+Source registration surface changed to sphere.reg
+Target registration surface changed to sphere.reg
+
+$Id: mri_surf2surf.c,v 1.103 2015/11/05 22:07:33 greve Exp $
+
+setenv SUBJECTS_DIR /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/WM/s2
+cd /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/WM/s2/FTD-FPD109/surf
+mri_surf2surf --srcsubject FTD-FPD109 --srchemi rh --srcsurfreg sphere.reg --trgsubject fsaverage --trghemi rh --trgsurfreg sphere.reg --tval ./tmp.mris_preproc.8187/FTD-FPD109.1.mgh --sval /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/WM/s2/FTD-FPD109/surf/rh.curv --sfmt curv --noreshape --cortex 
+
+sysname  Linux
+hostname neuroimagen0
+machine  x86_64
+user     neuroimagen0
+srcsubject = FTD-FPD109
+srcval     = /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/WM/s2/FTD-FPD109/surf/rh.curv
+srctype    = curv
+trgsubject = fsaverage
+trgval     = ./tmp.mris_preproc.8187/FTD-FPD109.1.mgh
+trgtype    = 
+srcsurfreg = sphere.reg
+trgsurfreg = sphere.reg
+srchemi    = rh
+trghemi    = rh
+frame      = 0
+fwhm-in    = 0
+fwhm-out   = 0
+label-src  = rh.cortex.label
+label-trg  = rh.cortex.label
+OKToRevFaceOrder  = 1
+UseDualHemi = 0
+Reading source surface reg /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/WM/s2/FTD-FPD109/surf/rh.sphere.reg
+Loading source data
+Reading curvature file /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/WM/s2/FTD-FPD109/surf/rh.curv
+Reading source subject label mask rh.cortex.label
+masking the input
+Reading target surface reg /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/WM/s2/fsaverage/surf/rh.sphere.reg
+Done
+Using surf2surf_nnfr()
+Mapping Source Volume onto Source Subject Surface
+surf2surf_nnfr: building source hash (res=16).
+Surf2Surf: Forward Loop (163842)
+
+surf2surf_nnfr: building target hash (res=16).
+Surf2Surf: Reverse Loop (140324)
+Reverse Loop had 21619 hits
+Surf2Surf: Dividing by number of hits (163842)
+INFO: nSrcLost = 0
+nTrg121 = 146051, nTrgMulti = 17791, MnTrgMultiHits = 2.21516
+nSrc121 = 103604, nSrcLost =     0, nSrcMulti = 36720, MnSrcMultiHits = 2.22922
+Reading target space mask label rh.cortex.label
+masking the input
+Saving target data
+Saving to ./tmp.mris_preproc.8187/FTD-FPD109.1.mgh
+
+
+
+-----------------------
+mri_concat ./tmp.mris_preproc.8187/FTD-FPD109.1.mgh --o rh.curv.fsaverage.mgh
+ninputs = 1
+Checking inputs
+nframestot = 1
+Allocing output
+Done allocing
+nframes = 1
+Writing to rh.curv.fsaverage.mgh
+
+
+
+Cleaning up
+-----------------------
+rm -r ./tmp.mris_preproc.8187
+mié abr  4 07:14:53 CEST 2018
+mris_preproc done

@@ -1,0 +1,13 @@
+------------------------------
+SUBJECT FTD-FPD109
+START_TIME mié abr 4 02:01:11 CEST 2018
+END_TIME mié abr 4 07:24:45 CEST 2018
+RUNTIME_HOURS 5,393
+USER neuroimagen0
+HOST neuroimagen0
+PROCESSOR x86_64
+OS Linux
+UNAME Linux neuroimagen0 4.13.0-37-generic #42~16.04.1-Ubuntu SMP Wed Mar 7 16:03:28 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+VERSION $Id: recon-all,v 1.580.2.16 2017/01/18 14:11:24 zkaufman Exp $
+CMDPATH /usr/local/freesurfer6/bin/recon-all
+CMDARGS -autorecon2-wm -autorecon3 -qcache -subjid FTD-FPD109

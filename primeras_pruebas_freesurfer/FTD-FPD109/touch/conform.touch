@@ -1,0 +1,1 @@
+mri_convert /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/FTD-FPD109/mri/rawavg.mgz /home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/FTD-FPD109/mri/orig.mgz --conform

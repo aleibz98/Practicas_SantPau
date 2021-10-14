@@ -1,0 +1,109 @@
+/home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/FTD-FPD109/mri
+/usr/local/freesurfer6/bin/mri_nu_correct.mni
+--no-rescale --i orig.mgz --o orig_nu.mgz --n 1 --proto-iters 1000 --distance 50
+nIters 1
+$Id: mri_nu_correct.mni,v 1.27 2016/02/26 16:19:49 mreuter Exp $
+Linux neuroimagen0 4.13.0-37-generic #42~16.04.1-Ubuntu SMP Wed Mar 7 16:03:28 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+jue mar 22 19:34:06 CET 2018
+Program nu_correct, built from:
+Package MNI N3, version 1.12.0, compiled by nicks@terrier (x86_64-unknown-linux-gnu) on 2015-06-19 at 01:25:34
+tmpdir is ./tmp.mri_nu_correct.mni.7527
+/home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/FTD-FPD109/mri
+mri_convert orig.mgz ./tmp.mri_nu_correct.mni.7527/nu0.mnc -odt float
+mri_convert.bin orig.mgz ./tmp.mri_nu_correct.mni.7527/nu0.mnc -odt float 
+$Id: mri_convert.c,v 1.226 2016/02/26 16:15:24 mreuter Exp $
+reading from orig.mgz...
+TR=8.19, TE=0.00, TI=0.00, flip angle=0.00
+i_ras = (-1, -7.45058e-09, 1.86265e-09)
+j_ras = (-1.86265e-09, 9.31323e-10, -1)
+k_ras = (0, 1, 9.31323e-10)
+changing data type from uchar to float (noscale = 0)...
+writing to ./tmp.mri_nu_correct.mni.7527/nu0.mnc...
+ 
+--------------------------------------------------------
+Iteration 1 jue mar 22 19:34:07 CET 2018
+nu_correct -clobber ./tmp.mri_nu_correct.mni.7527/nu0.mnc ./tmp.mri_nu_correct.mni.7527/nu1.mnc -tmpdir ./tmp.mri_nu_correct.mni.7527/0/ -iterations 1000 -distance 50
+[neuroimagen0@neuroimagen0:/home/neuroimagen0/Documents/FREESURFER/Freesurfer_prediction/Freesurfer/FTD-FPD109/mri/] [2018-03-22 19:34:07] running:
+  /usr/local/freesurfer6/mni/bin/nu_estimate_np_and_em -parzen -log -sharpen 0.15 0.01 -iterations 1000 -stop 0.001 -shrink 4 -auto_mask -nonotify -b_spline 1.0e-7 -distance 50 -quiet -execute -clobber -nokeeptmp -tmpdir ./tmp.mri_nu_correct.mni.7527/0/ ./tmp.mri_nu_correct.mni.7527/nu0.mnc ./tmp.mri_nu_correct.mni.7527/nu1.imp
+
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Processing:.................................................................Done
+Number of iterations: 60 
+CV of field change: 0.000992722
+ 
+ 
+ 
+mri_convert ./tmp.mri_nu_correct.mni.7527/nu1.mnc orig_nu.mgz --like orig.mgz --conform
+mri_convert.bin ./tmp.mri_nu_correct.mni.7527/nu1.mnc orig_nu.mgz --like orig.mgz --conform 
+$Id: mri_convert.c,v 1.226 2016/02/26 16:15:24 mreuter Exp $
+reading from ./tmp.mri_nu_correct.mni.7527/nu1.mnc...
+TR=0.00, TE=0.00, TI=0.00, flip angle=0.00
+i_ras = (-1, -7.45058e-09, 1.86265e-09)
+j_ras = (-1.86265e-09, 9.31323e-10, -1)
+k_ras = (0, 1, 9.31323e-10)
+INFO: transform src into the like-volume: orig.mgz
+changing data type from float to uchar (noscale = 0)...
+MRIchangeType: Building histogram 
+writing to orig_nu.mgz...
+ 
+ 
+jue mar 22 19:35:01 CET 2018
+mri_nu_correct.mni done

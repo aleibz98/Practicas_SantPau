@@ -1,0 +1,288 @@
+status file for recon-all
+jue mar 22 19:34:00 CET 2018
+#@# MotionCor jue mar 22 19:34:00 CET 2018
+#@# Talairach jue mar 22 19:34:06 CET 2018
+#@# Talairach Failure Detection jue mar 22 19:35:33 CET 2018
+#@# Nu Intensity Correction jue mar 22 19:35:33 CET 2018
+#@# Intensity Normalization jue mar 22 19:37:04 CET 2018
+#@# Skull Stripping jue mar 22 19:38:14 CET 2018
+#@# EM Registration jue mar 22 19:48:25 CET 2018
+#@# CA Normalize jue mar 22 19:56:48 CET 2018
+#@# CA Reg jue mar 22 19:57:37 CET 2018
+#@# SubCort Seg jue mar 22 23:30:58 CET 2018
+#@# Merge ASeg vie mar 23 00:05:48 CET 2018
+#@# Intensity Normalization2 vie mar 23 00:05:48 CET 2018
+#@# Mask BFS vie mar 23 00:08:18 CET 2018
+#@# WM Segmentation vie mar 23 00:08:19 CET 2018
+#@# Fill vie mar 23 00:09:34 CET 2018
+#@# Tessellate lh vie mar 23 00:10:00 CET 2018
+#@# Tessellate rh vie mar 23 00:10:03 CET 2018
+#@# Smooth1 lh vie mar 23 00:10:07 CET 2018
+#@# Smooth1 rh vie mar 23 00:10:12 CET 2018
+#@# Inflation1 lh vie mar 23 00:10:15 CET 2018
+#@# Inflation1 rh vie mar 23 00:10:51 CET 2018
+#@# QSphere lh vie mar 23 00:11:32 CET 2018
+#@# QSphere rh vie mar 23 00:15:24 CET 2018
+#@# Fix Topology Copy lh vie mar 23 00:19:18 CET 2018
+#@# Fix Topology Copy rh vie mar 23 00:19:18 CET 2018
+#@# Fix Topology lh vie mar 23 00:19:18 CET 2018
+#@# Fix Topology rh vie mar 23 00:30:16 CET 2018
+#@# Make White Surf lh vie mar 23 00:39:07 CET 2018
+#@# Make White Surf rh vie mar 23 00:42:21 CET 2018
+#@# Smooth2 lh vie mar 23 00:45:33 CET 2018
+#@# Smooth2 rh vie mar 23 00:45:38 CET 2018
+#@# Inflation2 lh vie mar 23 00:45:42 CET 2018
+#@# Inflation2 rh vie mar 23 00:46:31 CET 2018
+#@# Curv .H and .K lh vie mar 23 00:47:22 CET 2018
+#@# Curv .H and .K rh vie mar 23 00:48:09 CET 2018
+#@# Curvature Stats lh vie mar 23 00:48:57 CET 2018
+#@# Curvature Stats rh vie mar 23 00:49:00 CET 2018
+#@# Sphere lh vie mar 23 00:49:03 CET 2018
+#@# Sphere rh vie mar 23 01:31:57 CET 2018
+#@# Surf Reg lh vie mar 23 02:22:25 CET 2018
+#@# Surf Reg rh vie mar 23 03:24:18 CET 2018
+#@# Jacobian white lh vie mar 23 04:41:49 CET 2018
+#@# Jacobian white rh vie mar 23 04:41:51 CET 2018
+#@# AvgCurv lh vie mar 23 04:41:53 CET 2018
+#@# AvgCurv rh vie mar 23 04:41:54 CET 2018
+#@# Cortical Parc lh vie mar 23 04:41:56 CET 2018
+#@# Cortical Parc rh vie mar 23 04:42:09 CET 2018
+#@# Make Pial Surf lh vie mar 23 04:42:22 CET 2018
+#@# Make Pial Surf rh vie mar 23 04:52:25 CET 2018
+#@# Surf Volume lh vie mar 23 05:02:22 CET 2018
+#@# Surf Volume rh vie mar 23 05:02:24 CET 2018
+#@# Cortical ribbon mask vie mar 23 05:02:27 CET 2018
+#@# Parcellation Stats lh vie mar 23 05:10:42 CET 2018
+#@# Parcellation Stats rh vie mar 23 05:11:34 CET 2018
+#@# Cortical Parc 2 lh vie mar 23 05:12:23 CET 2018
+#@# Cortical Parc 2 rh vie mar 23 05:12:35 CET 2018
+#@# Parcellation Stats 2 lh vie mar 23 05:12:48 CET 2018
+#@# Parcellation Stats 2 rh vie mar 23 05:13:14 CET 2018
+#@# Cortical Parc 3 lh vie mar 23 05:13:41 CET 2018
+#@# Cortical Parc 3 rh vie mar 23 05:13:52 CET 2018
+#@# Parcellation Stats 3 lh vie mar 23 05:14:04 CET 2018
+#@# Parcellation Stats 3 rh vie mar 23 05:14:28 CET 2018
+#@# WM/GM Contrast lh vie mar 23 05:14:52 CET 2018
+#@# WM/GM Contrast rh vie mar 23 05:14:57 CET 2018
+#@# Relabel Hypointensities vie mar 23 05:15:01 CET 2018
+#@# AParc-to-ASeg aparc vie mar 23 05:15:15 CET 2018
+#@# AParc-to-ASeg a2009s vie mar 23 05:18:24 CET 2018
+#@# AParc-to-ASeg DKTatlas vie mar 23 05:21:28 CET 2018
+#@# APas-to-ASeg vie mar 23 05:24:30 CET 2018
+#@# ASeg Stats vie mar 23 05:24:36 CET 2018
+#@# WMParc vie mar 23 05:28:11 CET 2018
+#@# BA_exvivo Labels lh vie mar 23 05:38:05 CET 2018
+#@# BA_exvivo Labels rh vie mar 23 05:42:14 CET 2018
+recon-all -s FTD-FPD109 finished without error at vie mar 23 05:46:36 CET 2018
+
+
+
+New invocation of recon-all 
+
+
+
+status file for recon-all
+mié abr  4 02:01:11 CEST 2018
+#@# Intensity Normalization2 mié abr  4 02:01:11 CEST 2018
+#@# Mask BFS mié abr  4 02:03:20 CEST 2018
+#@# WM Segmentation mié abr  4 02:03:21 CEST 2018
+#@# Fill mié abr  4 02:04:42 CEST 2018
+#@# Tessellate lh mié abr  4 02:05:12 CEST 2018
+#@# Tessellate rh mié abr  4 02:05:16 CEST 2018
+#@# Smooth1 lh mié abr  4 02:05:21 CEST 2018
+#@# Smooth1 rh mié abr  4 02:05:25 CEST 2018
+#@# Inflation1 lh mié abr  4 02:05:28 CEST 2018
+#@# Inflation1 rh mié abr  4 02:05:59 CEST 2018
+#@# QSphere lh mié abr  4 02:06:43 CEST 2018
+#@# QSphere rh mié abr  4 02:10:25 CEST 2018
+#@# Fix Topology Copy lh mié abr  4 02:14:35 CEST 2018
+#@# Fix Topology Copy rh mié abr  4 02:14:35 CEST 2018
+#@# Fix Topology lh mié abr  4 02:14:35 CEST 2018
+#@# Fix Topology rh mié abr  4 02:20:32 CEST 2018
+#@# Make White Surf lh mié abr  4 02:26:57 CEST 2018
+#@# Make White Surf rh mié abr  4 02:30:09 CEST 2018
+#@# Smooth2 lh mié abr  4 02:33:10 CEST 2018
+#@# Smooth2 rh mié abr  4 02:33:14 CEST 2018
+#@# Inflation2 lh mié abr  4 02:33:18 CEST 2018
+#@# Inflation2 rh mié abr  4 02:34:01 CEST 2018
+#@# Curv .H and .K lh mié abr  4 02:34:46 CEST 2018
+#@# Curv .H and .K rh mié abr  4 02:35:31 CEST 2018
+#@# Curvature Stats lh mié abr  4 02:36:16 CEST 2018
+#@# Curvature Stats rh mié abr  4 02:36:19 CEST 2018
+#@# Sphere lh mié abr  4 02:36:22 CEST 2018
+#@# Sphere rh mié abr  4 03:07:13 CEST 2018
+#@# Surf Reg lh mié abr  4 03:55:13 CEST 2018
+#@# Surf Reg rh mié abr  4 04:49:42 CEST 2018
+#@# Jacobian white lh mié abr  4 06:06:23 CEST 2018
+#@# Jacobian white rh mié abr  4 06:06:25 CEST 2018
+#@# AvgCurv lh mié abr  4 06:06:27 CEST 2018
+#@# AvgCurv rh mié abr  4 06:06:29 CEST 2018
+#@# Cortical Parc lh mié abr  4 06:06:30 CEST 2018
+#@# Cortical Parc rh mié abr  4 06:06:43 CEST 2018
+#@# Make Pial Surf lh mié abr  4 06:06:55 CEST 2018
+#@# Make Pial Surf rh mié abr  4 06:16:47 CEST 2018
+#@# Surf Volume lh mié abr  4 06:26:40 CEST 2018
+#@# Surf Volume rh mié abr  4 06:26:43 CEST 2018
+#@# Cortical ribbon mask mié abr  4 06:26:46 CEST 2018
+#@# Parcellation Stats lh mié abr  4 06:36:41 CEST 2018
+#@# Parcellation Stats rh mié abr  4 06:37:25 CEST 2018
+#@# Cortical Parc 2 lh mié abr  4 06:38:29 CEST 2018
+#@# Cortical Parc 2 rh mié abr  4 06:38:42 CEST 2018
+#@# Parcellation Stats 2 lh mié abr  4 06:38:55 CEST 2018
+#@# Parcellation Stats 2 rh mié abr  4 06:39:18 CEST 2018
+#@# Cortical Parc 3 lh mié abr  4 06:39:43 CEST 2018
+#@# Cortical Parc 3 rh mié abr  4 06:39:53 CEST 2018
+#@# Parcellation Stats 3 lh mié abr  4 06:40:02 CEST 2018
+#@# Parcellation Stats 3 rh mié abr  4 06:40:24 CEST 2018
+#@# WM/GM Contrast lh mié abr  4 06:40:49 CEST 2018
+#@# WM/GM Contrast rh mié abr  4 06:40:53 CEST 2018
+#@# Relabel Hypointensities mié abr  4 06:40:58 CEST 2018
+#@# AParc-to-ASeg aparc mié abr  4 06:41:13 CEST 2018
+#@# AParc-to-ASeg a2009s mié abr  4 06:44:27 CEST 2018
+#@# AParc-to-ASeg DKTatlas mié abr  4 06:47:32 CEST 2018
+#@# APas-to-ASeg mié abr  4 06:50:32 CEST 2018
+#@# ASeg Stats mié abr  4 06:50:36 CEST 2018
+#@# WMParc mié abr  4 06:54:38 CEST 2018
+#@# BA_exvivo Labels lh mié abr  4 07:05:08 CEST 2018
+#@# BA_exvivo Labels rh mié abr  4 07:09:29 CEST 2018
+#@# Qdec Cache preproc lh thickness fsaverage mié abr  4 07:13:32 CEST 2018
+#@# Qdec Cache preproc lh area fsaverage mié abr  4 07:13:37 CEST 2018
+#@# Qdec Cache preproc lh area.pial fsaverage mié abr  4 07:13:43 CEST 2018
+#@# Qdec Cache preproc lh volume fsaverage mié abr  4 07:13:49 CEST 2018
+#@# Qdec Cache preproc lh curv fsaverage mié abr  4 07:13:55 CEST 2018
+#@# Qdec Cache preproc lh sulc fsaverage mié abr  4 07:13:59 CEST 2018
+#@# Qdec Cache preproc lh white.K fsaverage mié abr  4 07:14:04 CEST 2018
+#@# Qdec Cache preproc lh white.H fsaverage mié abr  4 07:14:08 CEST 2018
+#@# Qdec Cache preproc lh jacobian_white fsaverage mié abr  4 07:14:13 CEST 2018
+#@# Qdec Cache preproc lh w-g.pct.mgh fsaverage mié abr  4 07:14:18 CEST 2018
+#@# Qdec Cache preproc rh thickness fsaverage mié abr  4 07:14:22 CEST 2018
+#@# Qdec Cache preproc rh area fsaverage mié abr  4 07:14:27 CEST 2018
+#@# Qdec Cache preproc rh area.pial fsaverage mié abr  4 07:14:34 CEST 2018
+#@# Qdec Cache preproc rh volume fsaverage mié abr  4 07:14:40 CEST 2018
+#@# Qdec Cache preproc rh curv fsaverage mié abr  4 07:14:47 CEST 2018
+#@# Qdec Cache preproc rh sulc fsaverage mié abr  4 07:14:53 CEST 2018
+#@# Qdec Cache preproc rh white.K fsaverage mié abr  4 07:14:59 CEST 2018
+#@# Qdec Cache preproc rh white.H fsaverage mié abr  4 07:15:04 CEST 2018
+#@# Qdec Cache preproc rh jacobian_white fsaverage mié abr  4 07:15:10 CEST 2018
+#@# Qdec Cache preproc rh w-g.pct.mgh fsaverage mié abr  4 07:15:16 CEST 2018
+#@# Qdec Cache surf2surf lh thickness fwhm0 fsaverage mié abr  4 07:15:22 CEST 2018
+#@# Qdec Cache surf2surf lh thickness fwhm5 fsaverage mié abr  4 07:15:24 CEST 2018
+#@# Qdec Cache surf2surf lh thickness fwhm10 fsaverage mié abr  4 07:15:29 CEST 2018
+#@# Qdec Cache surf2surf lh thickness fwhm15 fsaverage mié abr  4 07:15:34 CEST 2018
+#@# Qdec Cache surf2surf lh thickness fwhm20 fsaverage mié abr  4 07:15:39 CEST 2018
+#@# Qdec Cache surf2surf lh thickness fwhm25 fsaverage mié abr  4 07:15:44 CEST 2018
+#@# Qdec Cache surf2surf lh area fwhm0 fsaverage mié abr  4 07:15:50 CEST 2018
+#@# Qdec Cache surf2surf lh area fwhm5 fsaverage mié abr  4 07:15:52 CEST 2018
+#@# Qdec Cache surf2surf lh area fwhm10 fsaverage mié abr  4 07:15:57 CEST 2018
+#@# Qdec Cache surf2surf lh area fwhm15 fsaverage mié abr  4 07:16:02 CEST 2018
+#@# Qdec Cache surf2surf lh area fwhm20 fsaverage mié abr  4 07:16:07 CEST 2018
+#@# Qdec Cache surf2surf lh area fwhm25 fsaverage mié abr  4 07:16:14 CEST 2018
+#@# Qdec Cache surf2surf lh area.pial fwhm0 fsaverage mié abr  4 07:16:20 CEST 2018
+#@# Qdec Cache surf2surf lh area.pial fwhm5 fsaverage mié abr  4 07:16:23 CEST 2018
+#@# Qdec Cache surf2surf lh area.pial fwhm10 fsaverage mié abr  4 07:16:28 CEST 2018
+#@# Qdec Cache surf2surf lh area.pial fwhm15 fsaverage mié abr  4 07:16:33 CEST 2018
+#@# Qdec Cache surf2surf lh area.pial fwhm20 fsaverage mié abr  4 07:16:37 CEST 2018
+#@# Qdec Cache surf2surf lh area.pial fwhm25 fsaverage mié abr  4 07:16:43 CEST 2018
+#@# Qdec Cache surf2surf lh volume fwhm0 fsaverage mié abr  4 07:16:49 CEST 2018
+#@# Qdec Cache surf2surf lh volume fwhm5 fsaverage mié abr  4 07:16:51 CEST 2018
+#@# Qdec Cache surf2surf lh volume fwhm10 fsaverage mié abr  4 07:16:56 CEST 2018
+#@# Qdec Cache surf2surf lh volume fwhm15 fsaverage mié abr  4 07:17:01 CEST 2018
+#@# Qdec Cache surf2surf lh volume fwhm20 fsaverage mié abr  4 07:17:06 CEST 2018
+#@# Qdec Cache surf2surf lh volume fwhm25 fsaverage mié abr  4 07:17:12 CEST 2018
+#@# Qdec Cache surf2surf lh curv fwhm0 fsaverage mié abr  4 07:17:19 CEST 2018
+#@# Qdec Cache surf2surf lh curv fwhm5 fsaverage mié abr  4 07:17:21 CEST 2018
+#@# Qdec Cache surf2surf lh curv fwhm10 fsaverage mié abr  4 07:17:27 CEST 2018
+#@# Qdec Cache surf2surf lh curv fwhm15 fsaverage mié abr  4 07:17:33 CEST 2018
+#@# Qdec Cache surf2surf lh curv fwhm20 fsaverage mié abr  4 07:17:39 CEST 2018
+#@# Qdec Cache surf2surf lh curv fwhm25 fsaverage mié abr  4 07:17:44 CEST 2018
+#@# Qdec Cache surf2surf lh sulc fwhm0 fsaverage mié abr  4 07:17:51 CEST 2018
+#@# Qdec Cache surf2surf lh sulc fwhm5 fsaverage mié abr  4 07:17:54 CEST 2018
+#@# Qdec Cache surf2surf lh sulc fwhm10 fsaverage mié abr  4 07:17:59 CEST 2018
+#@# Qdec Cache surf2surf lh sulc fwhm15 fsaverage mié abr  4 07:18:05 CEST 2018
+#@# Qdec Cache surf2surf lh sulc fwhm20 fsaverage mié abr  4 07:18:11 CEST 2018
+#@# Qdec Cache surf2surf lh sulc fwhm25 fsaverage mié abr  4 07:18:17 CEST 2018
+#@# Qdec Cache surf2surf lh white.K fwhm0 fsaverage mié abr  4 07:18:24 CEST 2018
+#@# Qdec Cache surf2surf lh white.K fwhm5 fsaverage mié abr  4 07:18:27 CEST 2018
+#@# Qdec Cache surf2surf lh white.K fwhm10 fsaverage mié abr  4 07:18:33 CEST 2018
+#@# Qdec Cache surf2surf lh white.K fwhm15 fsaverage mié abr  4 07:18:39 CEST 2018
+#@# Qdec Cache surf2surf lh white.K fwhm20 fsaverage mié abr  4 07:18:45 CEST 2018
+#@# Qdec Cache surf2surf lh white.K fwhm25 fsaverage mié abr  4 07:18:52 CEST 2018
+#@# Qdec Cache surf2surf lh white.H fwhm0 fsaverage mié abr  4 07:18:58 CEST 2018
+#@# Qdec Cache surf2surf lh white.H fwhm5 fsaverage mié abr  4 07:19:00 CEST 2018
+#@# Qdec Cache surf2surf lh white.H fwhm10 fsaverage mié abr  4 07:19:05 CEST 2018
+#@# Qdec Cache surf2surf lh white.H fwhm15 fsaverage mié abr  4 07:19:10 CEST 2018
+#@# Qdec Cache surf2surf lh white.H fwhm20 fsaverage mié abr  4 07:19:15 CEST 2018
+#@# Qdec Cache surf2surf lh white.H fwhm25 fsaverage mié abr  4 07:19:21 CEST 2018
+#@# Qdec Cache surf2surf lh jacobian_white fwhm0 fsaverage mié abr  4 07:19:26 CEST 2018
+#@# Qdec Cache surf2surf lh jacobian_white fwhm5 fsaverage mié abr  4 07:19:27 CEST 2018
+#@# Qdec Cache surf2surf lh jacobian_white fwhm10 fsaverage mié abr  4 07:19:31 CEST 2018
+#@# Qdec Cache surf2surf lh jacobian_white fwhm15 fsaverage mié abr  4 07:19:35 CEST 2018
+#@# Qdec Cache surf2surf lh jacobian_white fwhm20 fsaverage mié abr  4 07:19:39 CEST 2018
+#@# Qdec Cache surf2surf lh jacobian_white fwhm25 fsaverage mié abr  4 07:19:43 CEST 2018
+#@# Qdec Cache surf2surf lh w-g.pct.mgh fwhm0 fsaverage mié abr  4 07:19:49 CEST 2018
+#@# Qdec Cache surf2surf lh w-g.pct.mgh fwhm5 fsaverage mié abr  4 07:19:51 CEST 2018
+#@# Qdec Cache surf2surf lh w-g.pct.mgh fwhm10 fsaverage mié abr  4 07:19:56 CEST 2018
+#@# Qdec Cache surf2surf lh w-g.pct.mgh fwhm15 fsaverage mié abr  4 07:20:01 CEST 2018
+#@# Qdec Cache surf2surf lh w-g.pct.mgh fwhm20 fsaverage mié abr  4 07:20:06 CEST 2018
+#@# Qdec Cache surf2surf lh w-g.pct.mgh fwhm25 fsaverage mié abr  4 07:20:12 CEST 2018
+#@# Qdec Cache surf2surf rh thickness fwhm0 fsaverage mié abr  4 07:20:17 CEST 2018
+#@# Qdec Cache surf2surf rh thickness fwhm5 fsaverage mié abr  4 07:20:20 CEST 2018
+#@# Qdec Cache surf2surf rh thickness fwhm10 fsaverage mié abr  4 07:20:24 CEST 2018
+#@# Qdec Cache surf2surf rh thickness fwhm15 fsaverage mié abr  4 07:20:29 CEST 2018
+#@# Qdec Cache surf2surf rh thickness fwhm20 fsaverage mié abr  4 07:20:34 CEST 2018
+#@# Qdec Cache surf2surf rh thickness fwhm25 fsaverage mié abr  4 07:20:39 CEST 2018
+#@# Qdec Cache surf2surf rh area fwhm0 fsaverage mié abr  4 07:20:44 CEST 2018
+#@# Qdec Cache surf2surf rh area fwhm5 fsaverage mié abr  4 07:20:46 CEST 2018
+#@# Qdec Cache surf2surf rh area fwhm10 fsaverage mié abr  4 07:20:51 CEST 2018
+#@# Qdec Cache surf2surf rh area fwhm15 fsaverage mié abr  4 07:20:55 CEST 2018
+#@# Qdec Cache surf2surf rh area fwhm20 fsaverage mié abr  4 07:21:01 CEST 2018
+#@# Qdec Cache surf2surf rh area fwhm25 fsaverage mié abr  4 07:21:06 CEST 2018
+#@# Qdec Cache surf2surf rh area.pial fwhm0 fsaverage mié abr  4 07:21:12 CEST 2018
+#@# Qdec Cache surf2surf rh area.pial fwhm5 fsaverage mié abr  4 07:21:14 CEST 2018
+#@# Qdec Cache surf2surf rh area.pial fwhm10 fsaverage mié abr  4 07:21:19 CEST 2018
+#@# Qdec Cache surf2surf rh area.pial fwhm15 fsaverage mié abr  4 07:21:24 CEST 2018
+#@# Qdec Cache surf2surf rh area.pial fwhm20 fsaverage mié abr  4 07:21:29 CEST 2018
+#@# Qdec Cache surf2surf rh area.pial fwhm25 fsaverage mié abr  4 07:21:34 CEST 2018
+#@# Qdec Cache surf2surf rh volume fwhm0 fsaverage mié abr  4 07:21:40 CEST 2018
+#@# Qdec Cache surf2surf rh volume fwhm5 fsaverage mié abr  4 07:21:42 CEST 2018
+#@# Qdec Cache surf2surf rh volume fwhm10 fsaverage mié abr  4 07:21:46 CEST 2018
+#@# Qdec Cache surf2surf rh volume fwhm15 fsaverage mié abr  4 07:21:50 CEST 2018
+#@# Qdec Cache surf2surf rh volume fwhm20 fsaverage mié abr  4 07:21:55 CEST 2018
+#@# Qdec Cache surf2surf rh volume fwhm25 fsaverage mié abr  4 07:22:00 CEST 2018
+#@# Qdec Cache surf2surf rh curv fwhm0 fsaverage mié abr  4 07:22:05 CEST 2018
+#@# Qdec Cache surf2surf rh curv fwhm5 fsaverage mié abr  4 07:22:07 CEST 2018
+#@# Qdec Cache surf2surf rh curv fwhm10 fsaverage mié abr  4 07:22:12 CEST 2018
+#@# Qdec Cache surf2surf rh curv fwhm15 fsaverage mié abr  4 07:22:16 CEST 2018
+#@# Qdec Cache surf2surf rh curv fwhm20 fsaverage mié abr  4 07:22:20 CEST 2018
+#@# Qdec Cache surf2surf rh curv fwhm25 fsaverage mié abr  4 07:22:24 CEST 2018
+#@# Qdec Cache surf2surf rh sulc fwhm0 fsaverage mié abr  4 07:22:28 CEST 2018
+#@# Qdec Cache surf2surf rh sulc fwhm5 fsaverage mié abr  4 07:22:30 CEST 2018
+#@# Qdec Cache surf2surf rh sulc fwhm10 fsaverage mié abr  4 07:22:34 CEST 2018
+#@# Qdec Cache surf2surf rh sulc fwhm15 fsaverage mié abr  4 07:22:39 CEST 2018
+#@# Qdec Cache surf2surf rh sulc fwhm20 fsaverage mié abr  4 07:22:44 CEST 2018
+#@# Qdec Cache surf2surf rh sulc fwhm25 fsaverage mié abr  4 07:22:49 CEST 2018
+#@# Qdec Cache surf2surf rh white.K fwhm0 fsaverage mié abr  4 07:22:54 CEST 2018
+#@# Qdec Cache surf2surf rh white.K fwhm5 fsaverage mié abr  4 07:22:56 CEST 2018
+#@# Qdec Cache surf2surf rh white.K fwhm10 fsaverage mié abr  4 07:23:01 CEST 2018
+#@# Qdec Cache surf2surf rh white.K fwhm15 fsaverage mié abr  4 07:23:05 CEST 2018
+#@# Qdec Cache surf2surf rh white.K fwhm20 fsaverage mié abr  4 07:23:10 CEST 2018
+#@# Qdec Cache surf2surf rh white.K fwhm25 fsaverage mié abr  4 07:23:16 CEST 2018
+#@# Qdec Cache surf2surf rh white.H fwhm0 fsaverage mié abr  4 07:23:22 CEST 2018
+#@# Qdec Cache surf2surf rh white.H fwhm5 fsaverage mié abr  4 07:23:25 CEST 2018
+#@# Qdec Cache surf2surf rh white.H fwhm10 fsaverage mié abr  4 07:23:30 CEST 2018
+#@# Qdec Cache surf2surf rh white.H fwhm15 fsaverage mié abr  4 07:23:35 CEST 2018
+#@# Qdec Cache surf2surf rh white.H fwhm20 fsaverage mié abr  4 07:23:40 CEST 2018
+#@# Qdec Cache surf2surf rh white.H fwhm25 fsaverage mié abr  4 07:23:46 CEST 2018
+#@# Qdec Cache surf2surf rh jacobian_white fwhm0 fsaverage mié abr  4 07:23:52 CEST 2018
+#@# Qdec Cache surf2surf rh jacobian_white fwhm5 fsaverage mié abr  4 07:23:55 CEST 2018
+#@# Qdec Cache surf2surf rh jacobian_white fwhm10 fsaverage mié abr  4 07:23:59 CEST 2018
+#@# Qdec Cache surf2surf rh jacobian_white fwhm15 fsaverage mié abr  4 07:24:04 CEST 2018
+#@# Qdec Cache surf2surf rh jacobian_white fwhm20 fsaverage mié abr  4 07:24:08 CEST 2018
+#@# Qdec Cache surf2surf rh jacobian_white fwhm25 fsaverage mié abr  4 07:24:13 CEST 2018
+#@# Qdec Cache surf2surf rh w-g.pct.mgh fwhm0 fsaverage mié abr  4 07:24:18 CEST 2018
+#@# Qdec Cache surf2surf rh w-g.pct.mgh fwhm5 fsaverage mié abr  4 07:24:20 CEST 2018
+#@# Qdec Cache surf2surf rh w-g.pct.mgh fwhm10 fsaverage mié abr  4 07:24:24 CEST 2018
+#@# Qdec Cache surf2surf rh w-g.pct.mgh fwhm15 fsaverage mié abr  4 07:24:28 CEST 2018
+#@# Qdec Cache surf2surf rh w-g.pct.mgh fwhm20 fsaverage mié abr  4 07:24:33 CEST 2018
+#@# Qdec Cache surf2surf rh w-g.pct.mgh fwhm25 fsaverage mié abr  4 07:24:39 CEST 2018
+recon-all -s FTD-FPD109 finished without error at mié abr  4 07:24:45 CEST 2018
