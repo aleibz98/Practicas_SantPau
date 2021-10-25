@@ -1,0 +1,9 @@
+Logfile for pctsurfcon
+Tue 19 Oct 2021 03:22:39 PM CEST
+setenv SUBJECTS_DIR /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data
+cd /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-003S6257/scripts
+/usr/pubsw/packages/freesurfer/freesurfer-7.1/bin/pctsurfcon
+pctsurfcon 7.1.1
+Linux neuroimagen6 5.11.0-7620-generic #21~1624379747~20.04~3abeff8-Ubuntu SMP Wed Jun 23 02:23:55 UTC  x86_64 x86_64 x86_64 GNU/Linux
+FREESURFER_HOME /usr/pubsw/packages/freesurfer/freesurfer-7.1
+Cleaning up

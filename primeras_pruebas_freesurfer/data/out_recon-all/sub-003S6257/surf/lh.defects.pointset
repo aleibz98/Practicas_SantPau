@@ -1,0 +1,118 @@
+{
+    "data_type": "fs_pointset",
+    "points": [
+        {
+            "coordinates": {
+                "x": -52.7229,
+                "y": -24.7041,
+                "z": 27.9864
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": -50.9548,
+                "y": -24.6011,
+                "z": -24.9219
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": -12.0186,
+                "y": -10.878,
+                "z": 1.32549
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": -25.5478,
+                "y": 15.7982,
+                "z": -28.2048
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": 4.02766,
+                "y": 11.8863,
+                "z": 2.32961
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": -32.931,
+                "y": 15.3844,
+                "z": 45.3202
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": -7.14527,
+                "y": 16.3308,
+                "z": 50.1238
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": -1.81194,
+                "y": 24.9439,
+                "z": -11.4774
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": -29.8336,
+                "y": 27.0097,
+                "z": -16.9623
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": -27.6631,
+                "y": 28.7415,
+                "z": -34.1441
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": -7.12146,
+                "y": 30.436,
+                "z": 55.4115
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": -24.377,
+                "y": 36.3249,
+                "z": -28.4552
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": -45.7881,
+                "y": 36.1915,
+                "z": -9.14407
+            },
+            "legacy_stat": 1
+        },
+        {
+            "coordinates": {
+                "x": 7.93409,
+                "y": 51.5471,
+                "z": 6.35593
+            },
+            "legacy_stat": 1
+        }
+    ],
+    "vox2ras": "scanner_ras"
+}

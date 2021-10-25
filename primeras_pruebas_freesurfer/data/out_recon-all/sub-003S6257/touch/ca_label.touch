@@ -1,0 +1,1 @@
+mri_cc -aseg aseg.auto_noCCseg.mgz -o aseg.auto.mgz -lta /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-003S6257/mri/transforms/cc_up.lta sub-003S6257

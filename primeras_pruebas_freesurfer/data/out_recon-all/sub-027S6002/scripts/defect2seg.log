@@ -1,0 +1,38 @@
+Log file for defect2seg
+Tue 19 Oct 2021 02:29:30 PM CEST
+
+setenv SUBJECTS_DIR /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data
+cd /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/scripts
+/usr/pubsw/packages/freesurfer/freesurfer-7.1/bin/defect2seg --s sub-027S6002
+
+freesurfer-linux-centos7_x86_64-7.1.1-20200723-8b40551
+defect2seg 7.1.1
+Linux neuroimagen6 5.11.0-7620-generic #21~1624379747~20.04~3abeff8-Ubuntu SMP Wed Jun 23 02:23:55 UTC  x86_64 x86_64 x86_64 GNU/Linux
+pid 69880
+mri_label2vol --defects /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/lh.orig.nofix /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/lh.defect_labels /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/mri/orig.mgz 1000 0 /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/mri/surface.defects.mgz
+mri_label2vol supposed to be reproducible but seed not set
+Changing input type 0 to MRI_INT
+Converting defects to volume: offset=1000, merge=0
+Writing to /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/mri/surface.defects.mgz
+mris_defects_pointset -s /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/lh.orig.nofix -d /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/lh.defect_labels -o /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/lh.defects.pointset
+Reading in surface /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/lh.orig.nofix
+Reading in defect segmentation /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/lh.defect_labels
+#VMPC# mris_defects_pointset 148468
+mris_defects_pointset done
+mri_label2vol --defects /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/rh.orig.nofix /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/rh.defect_labels /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/mri/surface.defects.mgz 2000 1 /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/mri/surface.defects.mgz
+mri_label2vol supposed to be reproducible but seed not set
+Converting defects to volume: offset=2000, merge=1
+Writing to /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/mri/surface.defects.mgz
+mris_defects_pointset -s /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/rh.orig.nofix -d /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/rh.defect_labels -o /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/rh.defects.pointset
+Reading in surface /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/rh.orig.nofix
+Reading in defect segmentation /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/surf/rh.defect_labels
+#VMPC# mris_defects_pointset 149616
+mris_defects_pointset done
+ 
+Started at Tue 19 Oct 2021 02:29:30 PM CEST 
+Ended   at Tue 19 Oct 2021 02:29:34 PM CEST
+Defect2seg-Run-Time-Sec 4
+Defect2seg-Run-Time-Min 0.08
+Defect2seg-Run-Time-Hours 0.00
+ 
+defect2seg Done

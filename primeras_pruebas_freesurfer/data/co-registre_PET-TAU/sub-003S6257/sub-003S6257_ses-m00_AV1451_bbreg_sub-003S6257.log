@@ -1,0 +1,493 @@
+Logfile for bbregister
+Mon 25 Oct 2021 10:52:50 AM CEST
+
+setenv SUBJECTS_DIR /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
+cd /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer
+/usr/pubsw/packages/freesurfer/freesurfer-7.1/bin/bbregister --t1 --init-header --lta /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_bbregister/sub-003S6257_bbreg_out.lta --reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat --mov /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii --s sub-003S6257
+
+bbregister 7.1.1
+Linux neuroimagen6 5.11.0-7620-generic #21~1624379747~20.04~3abeff8-Ubuntu SMP Wed Jun 23 02:23:55 UTC  x86_64 x86_64 x86_64 GNU/Linux
+FREESURFER_HOME /usr/pubsw/packages/freesurfer/freesurfer-7.1
+mri_convert /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii
+mri_convert /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii 
+reading from /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii...
+TR=0.00, TE=0.00, TI=0.00, flip angle=0.00
+i_ras = (-1, -0, 0)
+j_ras = (0, 1, 0)
+k_ras = (-0, -0, 1)
+writing to /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii...
+tkregister2_cmdl --s sub-003S6257 --mov /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii --regheader --reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/reg.init.dat --noedit
+INFO: no target volume specified, assuming FreeSurfer orig volume.
+target  volume orig
+movable volume /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii
+reg file       /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/reg.init.dat
+LoadVol        0
+ZeroCRAS       0
+7.1.1
+Diagnostic Level -1
+INFO: loading target /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all/sub-003S6257/mri/orig.mgz
+Ttarg: --------------------
+-1.00000   0.00000   0.00000   128.00000;
+ 0.00000   0.00000   1.00000  -128.00000;
+ 0.00000  -1.00000   0.00000   128.00000;
+ 0.00000   0.00000   0.00000   1.00000;
+INFO: loading movable /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii
+Tmov: --------------------
+-1.01821   0.00000   0.00000   114.03953;
+ 0.00000   0.00000   2.02700  -82.09350;
+ 0.00000  -1.01821   0.00000   114.03953;
+ 0.00000   0.00000   0.00000   1.00000;
+mkheaderreg = 1, float2int = 0
+Computing reg from header (and possibly input matrix)
+---- Input registration matrix (computed) --------
+ 1.00000   0.00000   0.00000   117.25138;
+ 0.00000   0.00000   1.00000  -81.76466;
+ 0.00000  -1.00000   0.00000  -123.51283;
+ 0.00000   0.00000   0.00000   1.00000;
+---------------------------------------
+---- Input registration matrix --------
+ 1.00000   0.00000   0.00000   117.25138;
+ 0.00000   0.00000   1.00000  -81.76466;
+ 0.00000  -1.00000   0.00000  -123.51283;
+ 0.00000   0.00000   0.00000   1.00000;
+Determinant 1
+subject = sub-003S6257
+RegMat ---------------------------
+ 1.00000   0.00000   0.00000   117.25138;
+ 0.00000   0.00000   1.00000  -81.76466;
+ 0.00000  -1.00000   0.00000  -123.51283;
+ 0.00000   0.00000   0.00000   1.00000;
+mri_segreg --mov /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii --init-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/reg.init.dat --out-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/bbr.pass1.dat --subsamp-brute 100 --subsamp 100 --tol 1e-4 --tol1d 1e-3 --brute -4 4 4 --surf white --gm-proj-frac 0.5 --wm-gt-gm 0.5
+7.1.1
+setenv SUBJECTS_DIR /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
+cd /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer
+mri_segreg --mov /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii --init-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/reg.init.dat --out-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/bbr.pass1.dat --subsamp-brute 100 --subsamp 100 --tol 1e-4 --tol1d 1e-3 --brute -4 4 4 --surf white --gm-proj-frac 0.5 --wm-gt-gm 0.5 
+sysname  Linux
+hostname neuroimagen6
+machine  x86_64
+user     student
+movvol /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii
+regfile /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/reg.init.dat
+subject sub-003S6257
+dof 6
+outregfile /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/bbr.pass1.dat
+UseMask 0
+UseLH 1
+UseRH 1
+nsubsamp 100
+PenaltySign  1
+PenaltySlope 0.500000
+PenaltyCenter 0.000000
+surfname white
+GMProjFrac 0.500000
+WMProjAbs 2.000000
+lhcostfile (null)
+rhcostfile (null)
+interp  trilinear (1)
+frame  0
+TolPowell 0.000100
+nMaxItersPowell 36
+n1dmin  3
+Profile   0
+Gdiag_no  -1
+AddNoise  0 (0)
+SynthSeed 1635526946
+TransRandMax 0.000000
+RotRandMax 0.000000
+Translations 0.000000 0.000000 0.000000
+Rotations   0.000000 0.000000 0.000000
+Input reg
+ 1.00000   0.00000   0.00000   117.25138;
+ 0.00000   0.00000   1.00000  -81.76466;
+ 0.00000  -1.00000   0.00000  -123.51283;
+ 0.00000   0.00000   0.00000   1.00000;
+
+Loading mov
+Projecting LH Surfs
+Loading lh.white surf
+Loading lh.thickness for GM
+GM Proj: 1 0.500000 2.000000
+WM Proj: 0 0.500000 2.000000
+Projecting RH Surfs
+Loading rh.white surf
+Loading rh.thickness for GM
+Projecting RH Surfs
+Using lh.cortex.label
+Using rh.cortex.label
+Computing relative cost
+ 0  -25.0 -25.0 -25.0   10.000000
+ 1  -25.0 -25.0  25.0   1.109259
+ 2  -25.0  25.0 -25.0   0.989309
+ 3  -25.0  25.0  25.0   1.218637
+ 4   25.0 -25.0 -25.0   0.945721
+ 5   25.0 -25.0  25.0   1.159562
+ 6   25.0  25.0 -25.0   1.500000
+ 7   25.0  25.0  25.0   0.833333
+REL:  8  1.047507   17.755821  2.219478 rel = 0.471961 
+Initial costs ----------------
+Number of surface hits 100
+WM  Intensity   315.8614 +/- 582.6353
+Ctx Intensity   351.0270 +/- 567.9792
+Pct Contrast      1.2366 +/- 123.4355
+Cost   1.0475
+RelCost   0.4720
+
+
+WARNING: initial G-W contrast is positive, but expecting negative.
+If the mov data has a T2 contrast, re-run with --T2
+
+
+
+------------------------------------
+Brute force preopt -4 4 4, n = 729
+     0  -4.0000  -4.0000  -4.0000  -4.0000  -4.0000  -4.0000      1.1187   1.1187  0.0
+     1  -4.0000  -4.0000  -4.0000  -4.0000  -4.0000   0.0000      0.9969   0.9969  0.0
+    12  -4.0000  -4.0000  -4.0000   0.0000   0.0000  -4.0000      0.9265   0.9265  0.0
+   136  -4.0000   0.0000   4.0000  -4.0000  -4.0000   0.0000      0.8070   0.8070  0.0
+   512   4.0000  -4.0000  -4.0000   4.0000   4.0000   4.0000      0.7842   0.7842  0.0
+   587   4.0000   0.0000  -4.0000   4.0000  -4.0000   4.0000      0.7091   0.7091  0.0
+Brute Force --------------------------
+Min cost was 0.709082
+Number of iterations   729
+Search time 0.688752 sec
+Parameters at best (transmm, rotdeg)
+  4.000   0.000  -4.000  4.000 -4.000  4.000 
+--------------------------------------------
+
+Starting Powell Minimization
+Init Powel Params dof = 6
+0 4
+1 0
+2 -4
+3 4
+4 -4
+5 4
+fs_powell::minimize
+  nparams 6
+  maxfev 36
+  ftol   0.000100
+  linmin_xtol_   0.001000
+  powell nthiter 0: fret = 0.709082
+   2  5.000  0.000 -4.000  4.000 -4.000  4.000   0.6540461015
+   5  5.618  0.000 -4.000  4.000 -4.000  4.000   0.6120342492
+   7  5.374  0.000 -4.000  4.000 -4.000  4.000   0.5306165391
+   8  5.341  0.000 -4.000  4.000 -4.000  4.000   0.4800032685
+  14  5.340  0.000 -4.000  4.000 -4.000  4.000   0.4800032452
+  15  5.336  0.000 -4.000  4.000 -4.000  4.000   0.4800031538
+  18  5.335  0.000 -4.000  4.000 -4.000  4.000   0.4800031314
+  29  5.335  0.001 -4.000  4.000 -4.000  4.000   0.4800027674
+  30  5.335  0.013 -4.000  4.000 -4.000  4.000   0.4800009601
+  32  5.335  0.015 -4.000  4.000 -4.000  4.000   0.4800008962
+  33  5.335  0.021 -4.000  4.000 -4.000  4.000   0.4800007608
+  45  5.335  0.020 -3.999  4.000 -4.000  4.000   0.4800006208
+  46  5.335  0.020 -3.998  4.000 -4.000  4.000   0.4800005027
+  48  5.335  0.020 -3.997  4.000 -4.000  4.000   0.4800004210
+  49  5.335  0.020 -3.996  4.000 -4.000  4.000   0.4800003860
+  62  5.335  0.020 -3.996  4.001 -4.000  4.000   0.4800003838
+  77  5.335  0.020 -3.996  4.001 -4.001  4.000   0.4800003253
+  94  5.335  0.020 -3.996  4.001 -4.001  4.001   0.4800003189
+  powell nthiter 1: fret = 0.480000
+ 104  5.334  0.020 -3.996  4.001 -4.001  4.001   0.4800003141
+ 105  5.333  0.020 -3.996  4.001 -4.001  4.001   0.4800003099
+ 121  5.333  0.022 -3.996  4.001 -4.001  4.001   0.4800002974
+Powell done niters = 1
+Computing relative cost
+ 0  -25.0 -25.0 -25.0   10.000000
+ 1  -25.0 -25.0  25.0   10.000000
+ 2  -25.0  25.0 -25.0   1.040237
+ 3  -25.0  25.0  25.0   1.312500
+ 4   25.0 -25.0 -25.0   1.002118
+ 5   25.0 -25.0  25.0   0.999984
+ 6   25.0  25.0 -25.0   2.000000
+ 7   25.0  25.0  25.0   0.400000
+REL:  8  0.480000   26.754839  3.344355 rel = 0.143526 
+Number of iterations     1
+Min cost was 0.480000
+Number of FunctionCalls   179
+TolPowell 0.000100
+nMaxItersPowell 36
+OptimizationTime 0.197320 sec
+Parameters at optimum (transmm)  5.33268  0.02118 -3.99573
+Parameters at optimum (rotdeg)  4.00100 -4.00100  4.00113 
+Final costs ----------------
+Number of surface hits 50
+WM  Intensity     1.7863 +/-   4.0665
+Ctx Intensity     1.0046 +/-   2.5147
+Pct Contrast    -50.8969 +/- 124.3211
+Cost   0.4800
+RelCost   0.4720
+Reg at min cost was 
+ 0.99513   0.06457  -0.07446   136.07631;
+ 0.06961   0.07446   0.99479  -63.95940;
+ 0.06977  -0.99513   0.06960  -124.41729;
+ 0.00000   0.00000   0.00000   1.00000;
+
+Writing optimal reg to /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/bbr.pass1.dat, type = 14 
+Original Reg 
+ 1.00000   0.00000   0.00000   117.25138;
+ 0.00000   0.00000   1.00000  -81.76466;
+ 0.00000  -1.00000   0.00000  -123.51283;
+ 0.00000   0.00000   0.00000   1.00000;
+
+Original Reg - Optimal Reg
+ 0.00487  -0.06457   0.07446  -18.82493;
+-0.06961  -0.07446   0.00521  -17.80526;
+-0.06977  -0.00487  -0.06960   0.90446;
+ 0.00000   0.00000   0.00000   0.00000;
+
+Computing change in lh position
+LH rmsDiffMean 23.347986
+Computing change in rh position
+Surface-RMS-Diff-mm 24.723603 4.143532 34.446300
+
+
+WARNING: initial G-W contrast was positive, but expected negative.
+If the mov data has a T2 contrast, re-run with --T2
+
+
+mri_segreg done
+mri_segreg --mov /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii --init-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/bbr.pass1.dat --out-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat --interp trilinear --wm-proj-abs 2 --tol 1e-8 --tol1d 1e-3 --c0 0 --mincost /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat.mincost --dof 6 --nmax 36 --param /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat.param --surf white --brute -0.1 0.1 0.1 --cur-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/reg.curopt.dat --gm-proj-frac 0.5 --nsub 1 --wm-gt-gm 0.5
+7.1.1
+setenv SUBJECTS_DIR /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
+cd /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer
+mri_segreg --mov /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii --init-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/bbr.pass1.dat --out-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat --interp trilinear --wm-proj-abs 2 --tol 1e-8 --tol1d 1e-3 --c0 0 --mincost /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat.mincost --dof 6 --nmax 36 --param /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat.param --surf white --brute -0.1 0.1 0.1 --cur-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/reg.curopt.dat --gm-proj-frac 0.5 --nsub 1 --wm-gt-gm 0.5 
+sysname  Linux
+hostname neuroimagen6
+machine  x86_64
+user     student
+movvol /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii
+regfile /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/bbr.pass1.dat
+subject sub-003S6257
+dof 6
+outregfile /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat
+UseMask 0
+UseLH 1
+UseRH 1
+nsubsamp 1
+PenaltySign  1
+PenaltySlope 0.500000
+PenaltyCenter 0.000000
+surfname white
+GMProjFrac 0.500000
+WMProjAbs 2.000000
+lhcostfile (null)
+rhcostfile (null)
+interp  trilinear (1)
+frame  0
+TolPowell 0.000000
+nMaxItersPowell 36
+n1dmin  3
+Profile   0
+Gdiag_no  -1
+AddNoise  0 (0)
+SynthSeed 1635515894
+TransRandMax 0.000000
+RotRandMax 0.000000
+Translations 0.000000 0.000000 0.000000
+Rotations   0.000000 0.000000 0.000000
+Input reg
+ 0.99513   0.06457  -0.07446   136.07631;
+ 0.06961   0.07446   0.99479  -63.95940;
+ 0.06977  -0.99513   0.06960  -124.41729;
+ 0.00000   0.00000   0.00000   1.00000;
+
+Loading mov
+Projecting LH Surfs
+Loading lh.white surf
+Loading lh.thickness for GM
+GM Proj: 1 0.500000 2.000000
+WM Proj: 0 0.500000 2.000000
+Projecting RH Surfs
+Loading rh.white surf
+Loading rh.thickness for GM
+Projecting RH Surfs
+Using lh.cortex.label
+Using rh.cortex.label
+Computing relative cost
+ 0  -25.0 -25.0 -25.0   10.000000
+ 1  -25.0 -25.0  25.0   1.216655
+ 2  -25.0  25.0 -25.0   1.119982
+ 3  -25.0  25.0  25.0   1.034107
+ 4   25.0 -25.0 -25.0   1.118986
+ 5   25.0 -25.0  25.0   0.892432
+ 6   25.0  25.0 -25.0   1.379154
+ 7   25.0  25.0  25.0   1.160058
+REL:  8  1.047440   17.921373  2.240172 rel = 0.467572 
+Initial costs ----------------
+Number of surface hits 4072
+WM  Intensity     0.8552 +/-   2.0080
+Ctx Intensity     1.6374 +/-   5.2403
+Pct Contrast      7.6867 +/- 137.2813
+Cost   1.0474
+RelCost   0.4676
+
+
+WARNING: initial G-W contrast is positive, but expecting negative.
+If the mov data has a T2 contrast, re-run with --T2
+
+
+
+------------------------------------
+Brute force preopt -0.1 0.1 0.1, n = 729
+     0  -0.1000  -0.1000  -0.1000  -0.1000  -0.1000  -0.1000      0.8336   0.8336  0.0
+     1  -0.1000  -0.1000  -0.1000  -0.1000  -0.1000   0.0000      0.7093   0.7093  0.0
+     4  -0.1000  -0.1000  -0.1000  -0.1000   0.0000   0.0000      0.7020   0.7020  0.0
+     5  -0.1000  -0.1000  -0.1000  -0.1000   0.0000   0.1000      0.5714   0.5714  0.0
+    14  -0.1000  -0.1000  -0.1000   0.0000   0.0000   0.1000      0.5418   0.5418  0.0
+    19  -0.1000  -0.1000  -0.1000   0.1000  -0.1000   0.0000      0.5417   0.5417  0.0
+    41  -0.1000  -0.1000   0.0000   0.0000   0.0000   0.1000      0.4911   0.4911  0.0
+   100  -0.1000   0.0000  -0.1000   0.1000  -0.1000   0.0000      0.4898   0.4898  0.0
+   127  -0.1000   0.0000   0.0000   0.1000  -0.1000   0.0000      0.4898   0.4898  0.0
+   364   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000      0.4800   0.4800  0.0
+Brute Force --------------------------
+Min cost was 0.480000
+Number of iterations   729
+Search time 0.709398 sec
+Parameters at best (transmm, rotdeg)
+  0.000   0.000   0.000  0.000  0.000  0.000 
+--------------------------------------------
+
+Starting Powell Minimization
+Init Powel Params dof = 6
+0 0
+1 0
+2 0
+3 0
+4 0
+5 0
+fs_powell::minimize
+  nparams 6
+  maxfev 36
+  ftol   0.000000
+  linmin_xtol_   0.001000
+  powell nthiter 0: fret = 1.047441
+   7 -0.253  0.000  0.000  0.000  0.000  0.000   1.0435652586
+   8 -0.260  0.000  0.000  0.000  0.000  0.000   1.0417879099
+   9 -0.397  0.000  0.000  0.000  0.000  0.000   1.0348651127
+  10 -0.346  0.000  0.000  0.000  0.000  0.000   1.0315763289
+  11 -0.347  0.000  0.000  0.000  0.000  0.000   1.0310374582
+  22 -0.347  0.179  0.000  0.000  0.000  0.000   1.0262954763
+  23 -0.347  0.187  0.000  0.000  0.000  0.000   1.0251939689
+  26 -0.347  0.197  0.000  0.000  0.000  0.000   1.0238407456
+  27 -0.347  0.204  0.000  0.000  0.000  0.000   1.0236489431
+  28 -0.347  0.203  0.000  0.000  0.000  0.000   1.0235164997
+  29 -0.347  0.201  0.000  0.000  0.000  0.000   1.0232231274
+  38 -0.347  0.201  0.146  0.000  0.000  0.000   1.0198070793
+  40 -0.347  0.201  0.090  0.000  0.000  0.000   1.0195616603
+  41 -0.347  0.201  0.111  0.000  0.000  0.000   1.0172675040
+  42 -0.347  0.201  0.117  0.000  0.000  0.000   1.0168514798
+  45 -0.347  0.201  0.122  0.000  0.000  0.000   1.0161278408
+  powell nthiter 1: fret = 1.016128
+ 102 -0.419  0.201  0.122  0.000  0.000  0.000   1.0103773087
+ 109 -0.418  0.201  0.122  0.000  0.000  0.000   1.0102656717
+ 121 -0.418  0.202  0.122  0.000  0.000  0.000   1.0100506143
+ 133 -0.418  0.202  0.102  0.000  0.000  0.000   1.0092224520
+ 140 -0.418  0.202  0.103  0.000  0.000  0.000   1.0092067612
+  powell nthiter 2: fret = 1.009207
+Powell done niters = 2
+Computing relative cost
+ 0  -25.0 -25.0 -25.0   10.000000
+ 1  -25.0 -25.0  25.0   1.373208
+ 2  -25.0  25.0 -25.0   1.098382
+ 3  -25.0  25.0  25.0   1.055479
+ 4   25.0 -25.0 -25.0   1.099079
+ 5   25.0 -25.0  25.0   0.899987
+ 6   25.0  25.0 -25.0   1.368160
+ 7   25.0  25.0  25.0   1.039145
+REL:  8  1.009207   17.933441  2.241680 rel = 0.450201 
+Number of iterations     2
+Min cost was 1.009207
+Number of FunctionCalls   268
+TolPowell 0.000000
+nMaxItersPowell 36
+OptimizationTime 6.049411 sec
+Parameters at optimum (transmm) -0.41799  0.20207  0.10298
+Parameters at optimum (rotdeg)  0.00000  0.00000  0.00000 
+Final costs ----------------
+Number of surface hits 4210
+WM  Intensity     1.0078 +/-   2.5677
+Ctx Intensity     1.9804 +/-   7.3633
+Pct Contrast      4.4552 +/- 137.6713
+Cost   1.0092
+RelCost   0.4676
+Reg at min cost was 
+ 0.99513   0.06457  -0.07446   135.65833;
+ 0.06961   0.07446   0.99479  -63.75733;
+ 0.06977  -0.99513   0.06960  -124.31432;
+ 0.00000   0.00000   0.00000   1.00000;
+
+Writing optimal reg to /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat, type = 14 
+Original Reg 
+ 0.99513   0.06457  -0.07446   136.07631;
+ 0.06961   0.07446   0.99479  -63.95940;
+ 0.06977  -0.99513   0.06960  -124.41729;
+ 0.00000   0.00000   0.00000   1.00000;
+
+Original Reg - Optimal Reg
+ 0.00000   0.00000   0.00000   0.41798;
+ 0.00000   0.00000   0.00000  -0.20207;
+ 0.00000   0.00000   0.00000  -0.10297;
+ 0.00000   0.00000   0.00000   0.00000;
+
+Computing change in lh position
+LH rmsDiffMean 0.475550
+Computing change in rh position
+Surface-RMS-Diff-mm 0.475550 -nan 0.475550
+
+
+WARNING: initial G-W contrast was positive, but expected negative.
+If the mov data has a T2 contrast, re-run with --T2
+
+
+mri_segreg done
+MinCost: 1.009207 1.007801 1.980377 4.455163 
+tkregister2_cmdl --mov /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii --reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat --noedit --ltaout /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_bbregister/sub-003S6257_bbreg_out.lta
+INFO: no target volume specified, assuming FreeSurfer orig volume.
+target  volume orig
+movable volume /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii
+reg file       /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat
+LoadVol        0
+ZeroCRAS       0
+7.1.1
+Diagnostic Level -1
+---- Input registration matrix --------
+ 0.99513   0.06457  -0.07446   135.65833;
+ 0.06961   0.07446   0.99479  -63.75733;
+ 0.06977  -0.99513   0.06960  -124.31432;
+ 0.00000   0.00000   0.00000   1.00000;
+float2int = 0
+---------------------------------------
+INFO: loading target /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all/sub-003S6257/mri/orig.mgz
+Ttarg: --------------------
+-1.00000   0.00000   0.00000   128.00000;
+ 0.00000   0.00000   1.00000  -128.00000;
+ 0.00000  -1.00000   0.00000   128.00000;
+ 0.00000   0.00000   0.00000   1.00000;
+INFO: loading movable /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii
+Tmov: --------------------
+-1.01821   0.00000   0.00000   114.03953;
+ 0.00000   0.00000   2.02700  -82.09350;
+ 0.00000  -1.01821   0.00000   114.03953;
+ 0.00000   0.00000   0.00000   1.00000;
+mkheaderreg = 0, float2int = 0
+---- Input registration matrix --------
+ 0.99513   0.06457  -0.07446   135.65833;
+ 0.06961   0.07446   0.99479  -63.75733;
+ 0.06977  -0.99513   0.06960  -124.31432;
+ 0.00000   0.00000   0.00000   1.00000;
+Determinant 1
+subject = sub-003S6257
+RegMat ---------------------------
+ 0.99513   0.06457  -0.07446   135.65833;
+ 0.06961   0.07446   0.99479  -63.75733;
+ 0.06977  -0.99513   0.06960  -124.31432;
+ 0.00000   0.00000   0.00000   1.00000;
+Cleaning up
+ 
+Started at Mon 25 Oct 2021 10:52:50 AM CEST 
+Ended   at Mon 25 Oct 2021 10:53:04 AM CEST
+BBR-Run-Time-Sec 14
+ 
+bbregister Done
+To check results, run:
+tkregisterfv --mov /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii --reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_bbregister/sub-003S6257_bbreg_out.lta --surfs 

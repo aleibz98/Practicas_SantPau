@@ -1,0 +1,13 @@
+------------------------------
+SUBJECT sub-027S6002
+START_TIME Tue 19 Oct 2021 11:34:23 AM CEST
+END_TIME Tue 19 Oct 2021 03:42:29 PM CEST
+RUNTIME_HOURS 4.135
+USER student
+HOST neuroimagen6
+PROCESSOR x86_64
+OS Linux
+UNAME Linux neuroimagen6 5.11.0-7620-generic #21~1624379747~20.04~3abeff8-Ubuntu SMP Wed Jun 23 02:23:55 UTC  x86_64 x86_64 x86_64 GNU/Linux
+VERSION 7.1.1 (freesurfer-linux-centos7_x86_64-7.1.1-20200723-8b40551)
+CMDPATH /usr/pubsw/packages/freesurfer/freesurfer-7.1/bin/recon-all
+CMDARGS -all -i /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-027S6002/sub-027S6002_ses-m00_T1.nii -subjid sub-027S6002 -sd /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/

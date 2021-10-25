@@ -1,0 +1,111 @@
+7.1.1
+setenv SUBJECTS_DIR /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
+cd /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer
+mri_segreg --mov /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii --init-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/bbr.pass1.dat --out-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat --interp trilinear --wm-proj-abs 2 --tol 1e-8 --tol1d 1e-3 --c0 0 --mincost /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat.mincost --dof 6 --nmax 36 --param /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat.param --surf white --brute -0.1 0.1 0.1 --cur-reg /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/reg.curopt.dat --gm-proj-frac 0.5 --nsub 1 --wm-gt-gm 0.5 
+sysname  Linux
+hostname neuroimagen6
+machine  x86_64
+user     student
+movvol /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/template.nii
+regfile /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/tmp.bbregister.11249/bbr.pass1.dat
+subject sub-003S6257
+dof 6
+outregfile /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451_bbreg_sub-003S6257.dat
+UseMask 0
+UseLH 1
+UseRH 1
+nsubsamp 1
+PenaltySign  1
+PenaltySlope 0.500000
+PenaltyCenter 0.000000
+surfname white
+GMProjFrac 0.500000
+WMProjAbs 2.000000
+lhcostfile (null)
+rhcostfile (null)
+interp  trilinear (1)
+frame  0
+TolPowell 0.000000
+nMaxItersPowell 36
+n1dmin  3
+Profile   0
+Gdiag_no  -1
+AddNoise  0 (0)
+SynthSeed 1635515894
+TransRandMax 0.000000
+RotRandMax 0.000000
+Translations 0.000000 0.000000 0.000000
+Rotations   0.000000 0.000000 0.000000
+Input reg
+ 0.99513   0.06457  -0.07446   136.07631;
+ 0.06961   0.07446   0.99479  -63.95940;
+ 0.06977  -0.99513   0.06960  -124.41729;
+ 0.00000   0.00000   0.00000   1.00000;
+
+Initial costs ----------------
+Number of surface hits 4072
+WM  Intensity0     0.8552 +/-   2.0080
+Ctx Intensity0     1.6374 +/-   5.2403
+Pct Contrast0      7.6867 +/- 137.2813
+Cost   1.0474
+RelCost   0.4676
+
+
+WARNING: initial G-W contrast is positive, but expecting negative.
+If the mov data has a T2 contrast, re-run with --T2
+
+
+
+Brute force preopt -0.1 0.1 0.1, n = 729
+     0  -0.1000  -0.1000  -0.1000  -0.1000  -0.1000  -0.1000      0.8336   0.8336  0.0
+     1  -0.1000  -0.1000  -0.1000  -0.1000  -0.1000   0.0000      0.7093   0.7093  0.0
+     4  -0.1000  -0.1000  -0.1000  -0.1000   0.0000   0.0000      0.7020   0.7020  0.0
+     5  -0.1000  -0.1000  -0.1000  -0.1000   0.0000   0.1000      0.5714   0.5714  0.0
+    14  -0.1000  -0.1000  -0.1000   0.0000   0.0000   0.1000      0.5418   0.5418  0.0
+    19  -0.1000  -0.1000  -0.1000   0.1000  -0.1000   0.0000      0.5417   0.5417  0.0
+    41  -0.1000  -0.1000   0.0000   0.0000   0.0000   0.1000      0.4911   0.4911  0.0
+   100  -0.1000   0.0000  -0.1000   0.1000  -0.1000   0.0000      0.4898   0.4898  0.0
+   127  -0.1000   0.0000   0.0000   0.1000  -0.1000   0.0000      0.4898   0.4898  0.0
+   364   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000      0.4800   0.4800  0.0
+
+Final costs ----------------
+Number of surface hits 4210
+WM  Intensity0     1.0078 +/-   2.5677
+Ctx Intensity0     1.9804 +/-   7.3633
+Pct Contrast0      4.4552 +/- 137.6713
+Cost   1.0092
+RelCost   0.4676
+Number of iterations     2
+Min cost was 1.009207
+RelMinCost   0.4502
+Number of FunctionCalls   268
+OptimizationTime 6.049411 sec
+Parameters at optimum (transmm, rotdeg)
+-0.41799  0.20207  0.10298  0.00000  0.00000  0.00000 
+Number of surface hits 4210
+WM  Intensity     1.0078 +/-   2.5677
+Ctx Intensity     1.9804 +/-   7.3633
+Pct Contrast      4.4552 +/- 137.6713
+Cost at optimum   1.0092
+RelCostOptimum   0.4502
+nhits=   4210 wmmn=    1.0078 wmstd=  2.5677 constd=  137.6713 ctxmn=    1.9804 ctxstd=  7.3633 conmn =   4.4552 costmn =   1.0092 
+#C#  -0.418   0.202   0.103  0.000  0.000  0.000 0.000000 0.000000 1.009207 1.007801 1.980377 4.455163 0.000000 0.500000     1 0
+Reg at min cost was 
+ 0.99513   0.06457  -0.07446   135.65833;
+ 0.06961   0.07446   0.99479  -63.75733;
+ 0.06977  -0.99513   0.06960  -124.31432;
+ 0.00000   0.00000   0.00000   1.00000;
+
+Original Reg - Optimal Reg
+ 0.00000   0.00000   0.00000   0.41798;
+ 0.00000   0.00000   0.00000  -0.20207;
+ 0.00000   0.00000   0.00000  -0.10297;
+ 0.00000   0.00000   0.00000   0.00000;
+
+Surface-RMS-Diff-mm 0.475550 -nan 0.475550
+
+
+WARNING: initial G-W contrast was positive, but expected negative.
+If the mov data has a T2 contrast, re-run with --T2
+
+

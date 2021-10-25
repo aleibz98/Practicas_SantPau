@@ -1,0 +1,24 @@
+/home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/mri
+/usr/pubsw/packages/freesurfer/freesurfer-7.1/bin/mri_nu_correct.mni
+--no-rescale --i orig.mgz --o orig_nu.mgz --ants-n4 --n 1 --proto-iters 1000 --distance 50
+nIters 1
+mri_nu_correct.mni 7.1.1
+Linux neuroimagen6 5.11.0-7620-generic #21~1624379747~20.04~3abeff8-Ubuntu SMP Wed Jun 23 02:23:55 UTC  x86_64 x86_64 x86_64 GNU/Linux
+Tue 19 Oct 2021 11:34:32 AM CEST
+tmpdir is ./tmp.mri_nu_correct.mni.57338
+cd /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/sub-027S6002/mri
+AntsN4BiasFieldCorrectionFs -i orig.mgz -o ./tmp.mri_nu_correct.mni.57338/nu0.mgz
+Using shrink factor: 4
+mri_convert ./tmp.mri_nu_correct.mni.57338/nu0.mgz orig_nu.mgz --like orig.mgz --conform
+mri_convert ./tmp.mri_nu_correct.mni.57338/nu0.mgz orig_nu.mgz --like orig.mgz --conform 
+reading from ./tmp.mri_nu_correct.mni.57338/nu0.mgz...
+TR=0.00, TE=0.00, TI=0.00, flip angle=0.00
+i_ras = (-1, 0, 0)
+j_ras = (0, 0, -1)
+k_ras = (0, 1, 0)
+INFO: transform src into the like-volume: orig.mgz
+writing to orig_nu.mgz...
+ 
+ 
+Tue 19 Oct 2021 11:37:00 AM CEST
+mri_nu_correct.mni done

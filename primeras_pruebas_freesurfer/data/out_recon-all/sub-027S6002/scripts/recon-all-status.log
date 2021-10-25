@@ -1,0 +1,81 @@
+status file for recon-all
+Tue 19 Oct 2021 11:34:23 AM CEST
+#@# MotionCor Tue 19 Oct 2021 11:34:25 AM CEST
+#@# Talairach Tue 19 Oct 2021 11:34:32 AM CEST
+#@# Talairach Failure Detection Tue 19 Oct 2021 11:37:20 AM CEST
+#@# Nu Intensity Correction Tue 19 Oct 2021 11:37:20 AM CEST
+#@# Intensity Normalization Tue 19 Oct 2021 11:40:03 AM CEST
+#@# Skull Stripping Tue 19 Oct 2021 11:41:13 AM CEST
+#@# EM Registration Tue 19 Oct 2021 11:50:21 AM CEST
+#@# CA Normalize Tue 19 Oct 2021 11:58:16 AM CEST
+#@# CA Reg Tue 19 Oct 2021 11:59:08 AM CEST
+#@# SubCort Seg Tue 19 Oct 2021 01:51:32 PM CEST
+#@# CC Seg Tue 19 Oct 2021 02:16:10 PM CEST
+#@# Merge ASeg Tue 19 Oct 2021 02:16:30 PM CEST
+#@# Intensity Normalization2 Tue 19 Oct 2021 02:16:30 PM CEST
+#@# Mask BFS Tue 19 Oct 2021 02:18:21 PM CEST
+#@# WM Segmentation Tue 19 Oct 2021 02:18:22 PM CEST
+#@# Fill Tue 19 Oct 2021 02:20:18 PM CEST
+#@# Tessellate lh Tue 19 Oct 2021 02:21:27 PM CEST
+#@# Tessellate rh Tue 19 Oct 2021 02:21:31 PM CEST
+#@# Smooth1 lh Tue 19 Oct 2021 02:21:34 PM CEST
+#@# Smooth1 rh Tue 19 Oct 2021 02:21:36 PM CEST
+#@# Inflation1 lh Tue 19 Oct 2021 02:21:38 PM CEST
+#@# Inflation1 rh Tue 19 Oct 2021 02:21:55 PM CEST
+#@# QSphere lh Tue 19 Oct 2021 02:22:11 PM CEST
+#@# QSphere rh Tue 19 Oct 2021 02:24:04 PM CEST
+#@# Fix Topology lh Tue 19 Oct 2021 02:25:57 PM CEST
+#@# Fix Topology rh Tue 19 Oct 2021 02:27:44 PM CEST
+#@# Smooth2 lh Tue 19 Oct 2021 02:36:21 PM CEST
+#@# Smooth2 rh Tue 19 Oct 2021 02:36:24 PM CEST
+#@# Inflation2 lh Tue 19 Oct 2021 02:36:26 PM CEST
+#@# Inflation2 rh Tue 19 Oct 2021 02:36:42 PM CEST
+#@# Curv .H and .K lh Tue 19 Oct 2021 02:36:57 PM CEST
+#@# Curv .H and .K rh Tue 19 Oct 2021 02:37:29 PM CEST
+#@# Sphere lh Tue 19 Oct 2021 02:38:03 PM CEST
+#@# Sphere rh Tue 19 Oct 2021 02:47:49 PM CEST
+#@# Surf Reg lh Tue 19 Oct 2021 02:56:21 PM CEST
+#@# Surf Reg rh Tue 19 Oct 2021 03:01:34 PM CEST
+#@# Jacobian white lh Tue 19 Oct 2021 03:07:17 PM CEST
+#@# Jacobian white rh Tue 19 Oct 2021 03:07:18 PM CEST
+#@# AvgCurv lh Tue 19 Oct 2021 03:07:18 PM CEST
+#@# AvgCurv rh Tue 19 Oct 2021 03:07:19 PM CEST
+#@# Cortical Parc lh Tue 19 Oct 2021 03:07:20 PM CEST
+#@# Cortical Parc rh Tue 19 Oct 2021 03:07:26 PM CEST
+#@# white curv lh Tue 19 Oct 2021 03:18:07 PM CEST
+#@# white area lh Tue 19 Oct 2021 03:18:08 PM CEST
+#@# pial curv lh Tue 19 Oct 2021 03:18:09 PM CEST
+#@# pial area lh Tue 19 Oct 2021 03:18:10 PM CEST
+#@# thickness lh Tue 19 Oct 2021 03:18:11 PM CEST
+#@# area and vertex vol lh Tue 19 Oct 2021 03:18:36 PM CEST
+#@# white curv rh Tue 19 Oct 2021 03:18:37 PM CEST
+#@# white area rh Tue 19 Oct 2021 03:18:38 PM CEST
+#@# pial curv rh Tue 19 Oct 2021 03:18:39 PM CEST
+#@# pial area rh Tue 19 Oct 2021 03:18:40 PM CEST
+#@# thickness rh Tue 19 Oct 2021 03:18:41 PM CEST
+#@# area and vertex vol rh Tue 19 Oct 2021 03:19:04 PM CEST
+#@# Curvature Stats lh Tue 19 Oct 2021 03:19:06 PM CEST
+#@# Curvature Stats rh Tue 19 Oct 2021 03:19:08 PM CEST
+#@# Cortical ribbon mask Tue 19 Oct 2021 03:19:10 PM CEST
+#@# Cortical Parc 2 lh Tue 19 Oct 2021 03:22:57 PM CEST
+#@# Cortical Parc 2 rh Tue 19 Oct 2021 03:23:07 PM CEST
+#@# Cortical Parc 3 lh Tue 19 Oct 2021 03:23:17 PM CEST
+#@# Cortical Parc 3 rh Tue 19 Oct 2021 03:23:26 PM CEST
+#@# WM/GM Contrast lh Tue 19 Oct 2021 03:23:34 PM CEST
+#@# WM/GM Contrast rh Tue 19 Oct 2021 03:23:36 PM CEST
+#@# Relabel Hypointensities Tue 19 Oct 2021 03:23:39 PM CEST
+#@# APas-to-ASeg Tue 19 Oct 2021 03:23:52 PM CEST
+#@# AParc-to-ASeg aparc Tue 19 Oct 2021 03:24:08 PM CEST
+#@# AParc-to-ASeg aparc.a2009s Tue 19 Oct 2021 03:25:53 PM CEST
+#@# AParc-to-ASeg aparc.DKTatlas Tue 19 Oct 2021 03:27:45 PM CEST
+#@# WMParc Tue 19 Oct 2021 03:29:41 PM CEST
+#@# Parcellation Stats lh Tue 19 Oct 2021 03:34:09 PM CEST
+#@# Parcellation Stats rh Tue 19 Oct 2021 03:34:25 PM CEST
+#@# Parcellation Stats 2 lh Tue 19 Oct 2021 03:34:40 PM CEST
+#@# Parcellation Stats 2 rh Tue 19 Oct 2021 03:34:48 PM CEST
+#@# Parcellation Stats 3 lh Tue 19 Oct 2021 03:34:57 PM CEST
+#@# Parcellation Stats 3 rh Tue 19 Oct 2021 03:35:04 PM CEST
+#@# ASeg Stats Tue 19 Oct 2021 03:35:12 PM CEST
+#@# BA_exvivo Labels lh Tue 19 Oct 2021 03:37:10 PM CEST
+#@# BA_exvivo Labels rh Tue 19 Oct 2021 03:39:49 PM CEST
+recon-all -s sub-027S6002 finished without error at Tue 19 Oct 2021 03:42:29 PM CEST

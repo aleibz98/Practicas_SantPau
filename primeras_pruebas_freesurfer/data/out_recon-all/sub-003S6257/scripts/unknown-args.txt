@@ -1,0 +1,7 @@
+-all
+-i
+/home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_T1.nii
+-subjid
+sub-003S6257
+-sd
+/home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/
