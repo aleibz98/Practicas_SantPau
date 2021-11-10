@@ -16,7 +16,6 @@ init_values = {'Buena suerte para econtrarlos jaja'}
 # Argparse command line arguments
 parser = argparse.ArgumentParser(description='T1-to-Std_ANTS')
 parser.add_argument('--t1', required=True)
-# Argmuemnt metric should accept more than one value
 parser.add_argument('--metric', nargs='+', choices=metric_values, default=metric_values)
 parser.add_argument('--method', choices=[], default='SyN') 
 parser.add_argument('--brain', action='store_true', default=False)
@@ -59,7 +58,7 @@ if not os.path.exists(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'tra
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS'))
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'orig'))
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'transforms'))
-    os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'std'))
+    os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'orig-in-std'))
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'QC'))
 
 else:
@@ -90,7 +89,7 @@ registered_image = ants.registration(
 ants.plot(StdTemplate, overlay=registered_image['warpedmovout'], overlay_cmap='hot', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'T1', 'ANTS', 'QC', output_filename + '_reg_image.png'))
 
 #Save registration files
-registered_image['warpedmovout'].to_file(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'std', output_filename + '_reg.nii.gz'))
+registered_image['warpedmovout'].to_file(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'orig-in-std', output_filename + '_reg.nii.gz'))
 
 if len(registered_image['fwdtransforms']) == 1: # Non-elastic transformation
     copyfile(registered_image['fwdtransforms'][0], os.path.join(output_path, subject_name, 'T1', 'ANTS', 'transforms', output_filename + '_fwd.mat'))
