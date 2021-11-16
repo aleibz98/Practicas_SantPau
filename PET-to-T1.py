@@ -5,17 +5,17 @@ import os
 import argparse
 from shutil import copyfile
 from shutil import rmtree
-from nipype.interfaces.freesurfer import BBRegister
-from nipype.interfaces.freesurfer import MRICoreg
 from nipype.interfaces.freesurfer import ApplyVolTransform
 import ants
 
+# llamada ejemplo bbregister python PET-to-T1.py --method bbregister --dof 6 --init rr -m /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii -s sub-003S6257 -d /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
+# llamada ejemplo mri-coreg python PET-to-T1.py --method mri-coreg --dof 6 -m /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii -s sub-003S6257 -d /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
 
 # Data structures with possible input values for given parameters
 metric_values = {'MeanSquares', 'Correlation', 'MattesMutualInformation', 'Demons', 'JointHistogramMutualInformation', 'ANTsNeighborhoodCorrelation'}
-method_values = {'bbregister' 'mri-coreg', 'flair'}
+method_values = {'bbregister', 'mri-coreg', 'flair'}
 init_values = {'spm', 'fsl', 'coreg', 'rr'}
-dof_values = {6,9,12,'elastic'}
+dof_values = {'6' ,'9' ,'12'}
 
 # Arparse command line arguments
 parser = argparse.ArgumentParser(description='PET-to-T1')
@@ -25,7 +25,7 @@ parser.add_argument('--mov', '-m', required=True)
 parser.add_argument('--method', choices=method_values, required=True)
 parser.add_argument('--init', choices=init_values, default='header')
 parser.add_argument('--metric', choices=metric_values, default=metric_values)
-parser.add_argument('--dof', type=int, choices=dof_values, default=6)
+parser.add_argument('--dof', choices=dof_values, default=6)
 
 # Parse command line arguments
 input_dir = parser.parse_args().input_dir
@@ -36,80 +36,91 @@ init = parser.parse_args().init
 metrics = parser.parse_args().metric
 dof = parser.parse_args().dof
 
-# Set the output filename
-output_filename = subject_name + '_' + method + '_' + init
+# Set the output filename and other variables
+if method == 'bbregister':
+    output_filename = subject_name + '_' + method + '_' + init + '_' + dof + 'dof'
+elif method == 'mri-coreg':
+    output_filename = subject_name + '_' + method + '_' + dof + 'dof'
+elif method == 'flair':
+    output_filename = subject_name + '_' + method
+else:
+    print('Method not recognized')
 
 output_path = '/home/student/Practicas/Practicas_SantPau/outs'
+os.environ['SUBJECTS_DIR'] = input_dir
 
 # Generate the output filestructure
 os.makedirs(output_path,exist_ok=True)
 os.makedirs(os.path.join(output_path, subject_name), exist_ok=True)
 
 # Check if the transformation matrix exists
-if not os.path.exists( output_path, 'PET-TAU', method, 'transforms', output_filename + '_fwd.mat'):
+if not os.path.exists(os.path.join(output_path, 'PET-TAU', method, 'transforms', output_filename + '_fwd.mat')):
     # In the event we can't find the transform matrix, we should delete the ANTS directory and regenerate it
-    rmtree(os.path.join(output_path, subject_name, 'PET-TAU', method), ignore_errors=True)
+    #rmtree(os.path.join(output_path, subject_name, 'PET-TAU', method), ignore_errors=True)
     os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU'), exist_ok=True)
-    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method))
-    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'orig'))
-    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms'))
-    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'orig-in-t1'))
-    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC'))
-    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'T1-std'))
+    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method), exist_ok=True)
+    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', 'orig'), exist_ok=True)
+    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms'), exist_ok=True)
+    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std'), exist_ok=True)
+    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC'), exist_ok=True)
 
 else:
     print('Transformation matrix found, skipping ANTS registration')
 
 
 # Save the PET image in orig
-shutil.copyfile(PET_path, os.path.join(output_path, subject_name, 'PET-TAU', method, 'orig', subject_name + '_PET.nii.gz'))
+shutil.copyfile(PET_path, os.path.join(output_path, subject_name, 'PET-TAU', 'orig', subject_name + '_PET.nii.gz'))
 
 # Save the T1 image in orig
-T1_path = os.path.join(output_path, subject_name, 'PET-TAU', method, 'orig', subject_name + '_T1.mgz')
+T1_path = os.path.join(output_path, subject_name, 'PET-TAU', 'orig', subject_name + '_T1.mgz')
 shutil.copyfile(os.path.join(input_dir, subject_name, 'mri', 'T1.mgz'), T1_path)
 
 # TODO: Copy the T1-to-std files into T1_std (SOFTLINK)
+src = os.path.join(output_path, subject_name, 'T1', 'ANTS')
+dst = os.path.join(output_path, subject_name, 'PET-TAU', 'T1-std')
+try:
+    os.symlink(src, dst, target_is_directory=True)
+except FileExistsError:
+    pass
 
-
+call = ''
 # Set and run the registration
 if method == 'bbregister':
-    os.environ('SUBJECTS_DIR') = input_dir
     out_lta = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
     call = 'bbregister --s ' + subject_name + ' --mov ' + PET_path + ' --lta ' + out_lta + ' --t1 ' + '--init-' + init + ' --' + dof
-
+    print(call)
 
 elif method == 'mri-coreg':
-    coreg = MRICoreg()
-    coreg.inputs.source_file = PET_path
-    coreg.inputs.reference_file = T1_path
-    coreg.inputs.out_lta_file = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
-    coreg.run()
+    out_lta = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
+    call = 'mri_coreg --mov ' + PET_path + ' --lta ' + out_lta + ' --ref ' + T1_path + ' --dof ' + dof
+    print(call)
 
 elif method == 'flirt':
     pass
 
+# Execute call
+os.system(call) # cambiar por subprocess
 
 # Generate transformation for QC
 apply_transform = ApplyVolTransform()
 apply_transform.inputs.source_file = PET_path
 apply_transform.inputs.lta_file = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')                        # Fijamos la matriz de transformacion (output de bbregister)
 apply_transform.inputs.target_file = T1_path       # Fijamos la imagen fija (T1). Importante: No es la original, es la que genera recon-all.
-apply_transform.inputs.transformed_file = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + 'PET-to-T1.nii')     # Guardamos la imagen transformada
+apply_transform.inputs.transformed_file = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '_PET-to-T1.nii')     # Guardamos la imagen transformada
 apply_transform.run()
 
 # Generate transformation for QC
 # Load images
 T1 = ants.image_read(T1_path)
-PETintoT1 = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + 'PET-to-T1.nii'))
+PETintoT1 = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '_PET-to-T1.nii'))
 
 # Save first QC image
-ants.plot(T1, overlay=PETintoT1, overlay_cmap='hot', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_reg_image.png'))
+thresholded_PET = ants.threshold_image(PETintoT1, 1500)
+ants.plot(T1, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_reg_image.png'))
 
 # Get CSF
-mask = ants.get_mask(T1)
-segs = ants.kmeans_segmentation(T1, k=3, kmask=mask)
-mask_CSF = ants.threshold_image(PETintoT1, 0.05) # Podemos jugar un poco con el threshold
-ants.plot(PETintoT1, overlay=mask_CSF, overlay_cmap='jet', overlay_alpha=1, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_QC.png'))
+#ants.plot(PETintoT1, overlay=mask_CSF, overlay_cmap='jet', overlay_alpha=1, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_QC.png'))
+
 
 # Use ANTsPy to generate the metrics and save the results
 metric_val = dict()

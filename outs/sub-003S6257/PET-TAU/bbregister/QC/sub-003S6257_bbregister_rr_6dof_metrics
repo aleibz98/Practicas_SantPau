@@ -1,0 +1,7 @@
+Metric	Value
+MeanSquares	1037781.75
+Demons	1037781.75
+JointHistogramMutualInformation	-0.743392288684845
+ANTsNeighborhoodCorrelation	-0.743392288684845
+Correlation	-0.4337444007396698
+MattesMutualInformation	-0.3516755700111389
