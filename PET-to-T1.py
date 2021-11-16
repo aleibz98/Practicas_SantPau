@@ -14,7 +14,7 @@ import ants
 # Data structures with possible input values for given parameters
 metric_values = {'MeanSquares', 'Correlation', 'MattesMutualInformation', 'Demons', 'JointHistogramMutualInformation', 'ANTsNeighborhoodCorrelation'}
 method_values = {'bbregister' 'mri-coreg', 'flair'}
-init_values = {'spm', 'fsl', 'header', 'rr'}
+init_values = {'spm', 'fsl', 'coreg', 'rr'}
 dof_values = {6,9,12,'elastic'}
 
 # Arparse command line arguments
@@ -46,7 +46,7 @@ os.makedirs(output_path,exist_ok=True)
 os.makedirs(os.path.join(output_path, subject_name), exist_ok=True)
 
 # Check if the transformation matrix exists
-if not os.path.exists( output_path, 'PET-TAU', method, 'transforms', output_filename + '_fwd.mat')):
+if not os.path.exists( output_path, 'PET-TAU', method, 'transforms', output_filename + '_fwd.mat'):
     # In the event we can't find the transform matrix, we should delete the ANTS directory and regenerate it
     rmtree(os.path.join(output_path, subject_name, 'PET-TAU', method), ignore_errors=True)
     os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU'), exist_ok=True)
@@ -73,15 +73,10 @@ shutil.copyfile(os.path.join(input_dir, subject_name, 'mri', 'T1.mgz'), T1_path)
 
 # Set and run the registration
 if method == 'bbregister':
-    bbreg = BBRegister()
-    bbreg.inputs.subject_id = subject_name
-    bbreg.inputs.subjects_dir = input_dir
-    bbreg.input.contrast_type = 't1' # We are supposing a t1 contrast
-    bbreg.inputs.init = init
-    bbreg.inputs.source_file = PET_path
-    bbreg.inputs.out_lta_file = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
-    bbreg.inputs.d
-    bbreg.run()
+    os.environ('SUBJECTS_DIR') = input_dir
+    out_lta = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
+    call = 'bbregister --s ' + subject_name + ' --mov ' + PET_path + ' --lta ' + out_lta + ' --t1 ' + '--init-' + init + ' --' + dof
+
 
 elif method == 'mri-coreg':
     coreg = MRICoreg()
