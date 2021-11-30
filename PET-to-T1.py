@@ -64,6 +64,7 @@ if not os.path.exists(os.path.join(output_path, 'PET-TAU', method, 'transforms',
     os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms'), exist_ok=True)
     os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std'), exist_ok=True)
     os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC'), exist_ok=True)
+    os.makedirs(os.path.join(output_path, subject_name, 'PET-TAU', method, 'stats'), exist_ok=True)
 
 else:
     print('Transformation matrix found, skipping ANTS registration')
@@ -139,7 +140,9 @@ for metric in metric_val:
 metric_file.close()
 
 
+
 # Cargar el atlas FSL
+# Copiar el atlas a orig
 #/home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/FTD-FPD109/mri/aparc+aseg.mgz
 atlas_path = ""
 atlas = ants.image_read(atlas_path)
@@ -163,19 +166,19 @@ df_intensities['mask'] = ROI_mask.reshape(-1)
 mean_ROI_intensity = df_intensities["mask" == True].mean()
 
 # Normalizar la imagen PET con la media de las ROIS
-df_intensities['scaled_intensities'] = df_intensities['PET_intensities'] / mean_ROI_intensity
+df_intensities['scaled_PET_intensities'] = df_intensities['PET_intensities'] / mean_ROI_intensity
 
 # Guardar las imágenes normalizadas
-normalised_PET = df_intensities['scaled_intensities'].values.reshape(PETintoT1.shape)
+normalised_PET = df_intensities['scaled_PET_intensities'].values.reshape(PETintoT1.shape)
 ants.image_write(normalised_PET, os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '_PET_to_T1_scaled.nii.gz'))
-#TODO: guardar también imagen para QC?
+
+# Generar la imagen de QC con la PET escalada
+thresholded_PET = ants.threshold_image(normalised_PET, 1)
+ants.plot(T1, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_reg_image_scaled.png'))
 
 # Guardar en un csv los valores de las intensidades de las ROIs
-df_intensities.to_csv(os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_PET_to_T1_scaled.csv'))
+df_intensities.to_csv(os.path.join(output_path, subject_name, 'PET-TAU', method, 'stats', output_filename + '_stats.csv'))
 with open('media_intensidades_roi.csv', 'w') as out:
     df_intensities.groupby('tags').mean().to_csv(out)
 
 #LO DEBERIA IR PROBANDO CON UN ipynb
-
-
-### los diccionarios tendrían que ir dentro de una nueva carpeta stats
