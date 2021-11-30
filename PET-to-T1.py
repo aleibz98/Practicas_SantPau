@@ -1,6 +1,7 @@
 import shutil
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import os
 import argparse
 from shutil import copyfile
@@ -138,22 +139,43 @@ for metric in metric_val:
 metric_file.close()
 
 
-# Que falta hacer???
-
 # Cargar el atlas FSL
+#/home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/FTD-FPD109/mri/aparc+aseg.mgz
+atlas_path = ""
+atlas = ants.image_read(atlas_path)
 
 # Añadir como parametro que ROIs se quieren usar
+ROIs = []
 
-# Seleccionar las ROIS
+# Crear la máscara de las ROIS en la imagen PET
+def get_ROI(atlas, list_ROIs):
+    ROI = [ (x in list_ROIs) for x in atlas.reshape(-1)]
+    ROI = np.array(ROI)
+    return ROI.reshape(atlas.shape)
+
+ROI_mask = get_ROI(atlas, ROIs)
+
+df_intensities = pd.DataFrame(atlas.reshape(-1), columns=['tags'])
+df_intensities['PET_intensities'] = PETintoT1.reshape(-1)
+df_intensities['mask'] = ROI_mask.reshape(-1)
 
 # Computar la media de las ROIS
+mean_ROI_intensity = df_intensities["mask" == True].mean()
 
 # Normalizar la imagen PET con la media de las ROIS
+df_intensities['scaled_intensities'] = df_intensities['PET_intensities'] / mean_ROI_intensity
 
 # Guardar las imágenes normalizadas
+normalised_PET = df_intensities['scaled_intensities'].values.reshape(PETintoT1.shape)
+ants.image_write(normalised_PET, os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '_PET_to_T1_scaled.nii.gz'))
+#TODO: guardar también imagen para QC?
 
-# Guardar el diccionario label: avg_ROI_intensity
+# Guardar en un csv los valores de las intensidades de las ROIs
+df_intensities.to_csv(os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_PET_to_T1_scaled.csv'))
+with open('media_intensidades_roi.csv', 'w') as out:
+    df_intensities.groupby('tags').mean().to_csv(out)
 
-# Guardar el diccionario label: avg_ROI_intensity_normalized
+#LO DEBERIA IR PROBANDO CON UN ipynb
+
 
 ### los diccionarios tendrían que ir dentro de una nueva carpeta stats
