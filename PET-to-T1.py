@@ -8,8 +8,8 @@ from shutil import rmtree
 from nipype.interfaces.freesurfer import ApplyVolTransform
 import ants
 
-# llamada ejemplo bbregister python PET-to-T1.py --method bbregister --dof 6 --init rr -m /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii -s sub-003S6257 -d /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
-# llamada ejemplo mri-coreg python PET-to-T1.py --method mri-coreg --dof 6 -m /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii -s sub-003S6257 -d /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
+# llamada ejemplo bbregister: python PET-to-T1.py --method bbregister --dof 6 --init rr -m /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii -s sub-003S6257 -d /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
+# llamada ejemplo mri-coreg: python PET-to-T1.py --method mri-coreg --dof 6 -m /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii -s sub-003S6257 -d /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
 
 # Data structures with possible input values for given parameters
 metric_values = {'MeanSquares', 'Correlation', 'MattesMutualInformation', 'Demons', 'JointHistogramMutualInformation', 'ANTsNeighborhoodCorrelation'}
@@ -75,7 +75,6 @@ shutil.copyfile(PET_path, os.path.join(output_path, subject_name, 'PET-TAU', 'or
 T1_path = os.path.join(output_path, subject_name, 'PET-TAU', 'orig', subject_name + '_T1.mgz')
 shutil.copyfile(os.path.join(input_dir, subject_name, 'mri', 'T1.mgz'), T1_path)
 
-# TODO: Copy the T1-to-std files into T1_std (SOFTLINK)
 src = os.path.join(output_path, subject_name, 'T1', 'ANTS')
 dst = os.path.join(output_path, subject_name, 'PET-TAU', 'T1-std')
 try:
@@ -99,7 +98,7 @@ elif method == 'flirt':
     pass
 
 # Execute call
-os.system(call) # cambiar por subprocess
+os.system(call) #TODO: cambiar por subprocess
 
 # Generate transformation for QC
 apply_transform = ApplyVolTransform()
@@ -139,3 +138,22 @@ for metric in metric_val:
 metric_file.close()
 
 
+# Que falta hacer???
+
+# Cargar el atlas FSL
+
+# Añadir como parametro que ROIs se quieren usar
+
+# Seleccionar las ROIS
+
+# Computar la media de las ROIS
+
+# Normalizar la imagen PET con la media de las ROIS
+
+# Guardar las imágenes normalizadas
+
+# Guardar el diccionario label: avg_ROI_intensity
+
+# Guardar el diccionario label: avg_ROI_intensity_normalized
+
+### los diccionarios tendrían que ir dentro de una nueva carpeta stats
