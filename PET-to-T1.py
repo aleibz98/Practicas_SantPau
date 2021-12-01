@@ -148,37 +148,36 @@ atlas_path = ""
 atlas = ants.image_read(atlas_path)
 
 # Añadir como parametro que ROIs se quieren usar
-ROIs = []
+ROIs = [8,47]
 
 # Crear la máscara de las ROIS en la imagen PET
-def get_ROI(atlas, list_ROIs):
-    ROI = [ (x in list_ROIs) for x in atlas.reshape(-1)]
-    ROI = np.array(ROI)
-    return ROI.reshape(atlas.shape)
+def get_ROI(atlas, list_of_ROIs):
+    mask = [ (x in list_of_ROIs) for x in atlas.numpy().reshape(-1)]
+    mask = np.array(mask).reshape(atlas.shape)
+    return mask
 
-ROI_mask = get_ROI(atlas, ROIs)
-
-df_intensities = pd.DataFrame(atlas.reshape(-1), columns=['tags'])
-df_intensities['PET_intensities'] = PETintoT1.reshape(-1)
-df_intensities['mask'] = ROI_mask.reshape(-1)
+ROI_mask = get_ROI(atlas, ROIS)
+df_intensities = pd.DataFrame(atlas.numpy().flatten(), columns=["tags"])
+df_intensities["PET_intensities"] = PETintoT1.numpy().flatten()
+df_intensities["ROIs_mask"] = ROI_mask.flatten()
 
 # Computar la media de las ROIS
-mean_ROI_intensity = df_intensities["mask" == True].mean()
+mean_ROI_intensity = df_intensities.groupby("ROIs_mask").mean()
+mean_ROI_intensity = mean_ROI_intensity.reset_index()
+mean_ROI_intensity = mean_ROI_intensity["PET_intensities"][1]
 
 # Normalizar la imagen PET con la media de las ROIS
-df_intensities['scaled_PET_intensities'] = df_intensities['PET_intensities'] / mean_ROI_intensity
+df_intensities["scaled_PET_intensity"] = df_intensities["PET_intensities"] / mean_ROI_intensity
+scaled_PET = ants.from_numpy(df_intensities["scaled_PET_intensity"].values.reshape(atlas.shape), spacing=PETintoT1.spacing, direction=PETintoT1.direction, origin=PETintoT1.origin)
 
 # Guardar las imágenes normalizadas
-normalised_PET = df_intensities['scaled_PET_intensities'].values.reshape(PETintoT1.shape)
-ants.image_write(normalised_PET, os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '_PET_to_T1_scaled.nii.gz'))
+scaled_PET.save(os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + 'PET-to-T1_scaled.nii'))
 
 # Generar la imagen de QC con la PET escalada
-thresholded_PET = ants.threshold_image(normalised_PET, 1)
+thresholded_PET = ants.threshold_image(scaled_PET, 1)
 ants.plot(T1, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_reg_image_scaled.png'))
 
 # Guardar en un csv los valores de las intensidades de las ROIs
-df_intensities.to_csv(os.path.join(output_path, subject_name, 'PET-TAU', method, 'stats', output_filename + '_stats.csv'))
-with open('media_intensidades_roi.csv', 'w') as out:
-    df_intensities.groupby('tags').mean().to_csv(out)
-
-#LO DEBERIA IR PROBANDO CON UN ipynb
+df_intensities.drop('ROIs_mask', axis=1, inplace=True)
+with open(os.path.join(output_path, subject_name, 'PET-TAU', method, 'stats', output_filename + '_stats.csv'), "w") as f:
+    df_intensities.groupby("tags").mean().to_csv(f)
