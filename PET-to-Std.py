@@ -38,5 +38,8 @@ PET-to-Std_matrix = ""
 # Guardado de la imagen resultante (PET-to-std y PET_scaled-to-std)
 
 
-# 
+# Generación de imágenes para QC
+
+
+# Cálculo de métricas y estadísticas
 
