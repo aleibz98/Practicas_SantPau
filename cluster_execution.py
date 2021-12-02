@@ -4,10 +4,11 @@ import os
 # context settings: environ
 
 #directorio donde están todos los inputs (fsl subjects)
+
+#TODO: completar los paths del cluster
 os.environ('SUBJECTS_DIR') = ""
 os.mkdir(os.getcwd() + "/outputs")
 os.environ('OUT_PATH') = os.path.join(os.getcwd(), "outputs")
-
 
 # data scructures
 methods = ['bbregister', 'mri-coreg', 'flair']
@@ -19,7 +20,6 @@ subjects = os.listdir(os.environ.get('SUBJECTS_DIR'))
 
 # get all necessary paths
 input_dir = os.environ.get('SUBJECTS_DIR')
-
 
 # generate all T1-to-Std calls
 for subject in subjects:

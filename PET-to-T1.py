@@ -89,12 +89,12 @@ call = ''
 # Set and run the registration
 if method == 'bbregister':
     out_lta = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
-    call = 'samrun -c bbregister --s ' + subject_name + ' --mov ' + PET_path + ' --lta ' + out_lta + ' --t1 ' + '--init-' + init + ' --' + dof
+    call = 'samrun -c "bbregister --s ' + subject_name + ' --mov ' + PET_path + ' --lta ' + out_lta + ' --t1 ' + '--init-' + init + ' --' + dof
     print(call)
 
 elif method == 'mri-coreg':
     out_lta = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
-    call = 'samrun -c mri_coreg --mov ' + PET_path + ' --lta ' + out_lta + ' --ref ' + T1_path + ' --dof ' + dof
+    call = 'samrun -c "mri_coreg --mov ' + PET_path + ' --lta ' + out_lta + ' --ref ' + T1_path + ' --dof ' + dof
     print(call)
 
 elif method == 'flirt':
@@ -251,14 +251,36 @@ os.subprocess.call(call)
 PETintoStd = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std.nii.gz'))
 scaled_PETintoStd = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std_scaled.nii.gz'))
 
-# Generamos las imágenes de QC
-# PET Normal
-thresholded_PET = ants.threshold_image(PETintoStd, 1500)
-ants.plot(StdTemplate, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', 'QC', output_filename + '_reg_image.png'))
+#TODO: Escalar la imagen PET en el espacio de la imagen T1-std
+#TODO: El atlas en este caso tendría que estar en el espacio Std
+#TODO: Seguramente trabajare con centiloid, así que en principio funciona diferente :)
+        # Igualmente, no debería cambiar demasido...espero...
+ROI_mask = get_ROI(atlas_std, ROIs)
+df_intensities_std = pd.DataFrame(atlas_std.numpy().flatten(), columns=["tags"])
+df_intensities_std["PET_intensities"] = PETintoT1.numpy().flatten()
+df_intensities_std["ROIs_mask"] = ROI_mask.flatten()
 
-# PET escalado
+# Computar la media de las ROIS
+mean_ROI_intensity_std = df_intensities_std.groupby("ROIs_mask").mean()
+mean_ROI_intensity_std = mean_ROI_intensity_std.reset_index()
+mean_ROI_intensity_std = mean_ROI_intensity_std["PET_intensities"][1]
+
+# Normalizar la imagen PET con la media de las ROIS
+df_intensities_std["scaled_PET_intensity"] = df_intensities_std["PET_intensities"] / mean_ROI_intensity_std
+scaled_PET_inStd = ants.from_numpy(df_intensities_std["scaled_PET_intensity"].values.reshape(atlas_std.shape), spacing=StdTemplate.spacing, direction=StdTemplate.direction, origin=StdTemplate.origin)
+
+# Guardar las imágenes normalizadas
+scaled_PET_inStd_path = os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', 'transforms', output_filename + 'PET-to-Std_scaled_in_std.nii')
+scaled_PET_inStd.save(scaled_PET_inStd_path)
+
+# Generamos las imágenes de QC
+# PET escalado en T1 subject
 thresholded_PET = ants.threshold_image(scaled_PETintoStd, 1)
-ants.plot(StdTemplate, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', 'QC', output_filename + '_reg_image_scaled.png'))
+ants.plot(StdTemplate, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', 'QC', output_filename + '_reg_image_scaled_in_T1space.png'))
+
+# PET escalado en Std
+thresholded_PET = ants.threshold_image(scaled_PET_inStd, 1)
+ants.plot(StdTemplate, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', 'QC', output_filename + '_reg_image_scaled_in_std.png'))
 
 # Compute metrics
 # Use ANTsPy to generate the metrics and save the results

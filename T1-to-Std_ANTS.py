@@ -66,6 +66,7 @@ if not os.path.exists(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'tra
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'atlas'))
 else:
     print('Transformation matrix found, skipping ANTS registration')
+    #TODO: Completar para que realmente se salte lo que no tenemos que hacer
 
 
 # Load the necessary files
