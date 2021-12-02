@@ -14,7 +14,7 @@ import ants
 
 # Data structures with possible input values for given parameters
 metric_values = {'MeanSquares', 'Correlation', 'MattesMutualInformation', 'Demons', 'JointHistogramMutualInformation', 'ANTsNeighborhoodCorrelation'}
-method_values = {'bbregister', 'mri-coreg', 'flair'}
+method_values = {'bbregister', 'mri-coreg', 'flair'} #añadir vvregister
 init_values = {'spm', 'fsl', 'coreg', 'rr'}
 dof_values = {'6' ,'9' ,'12'}
 
@@ -143,8 +143,8 @@ metric_file.close()
 atlas_path = os.path.join(output_path, subject_name, 'T1', 'ANTS' 'atlas', 'atlas.mgz')
 atlas = ants.image_read(atlas_path)
 
-# Añadir como parametro que ROIs se quieren usar
-ROIs = [8,47] #TODO: Check que estas sean las ROIs correctas
+# Añadir como parametro que ROIs se quieren usar para el atlas Desikan
+ROIs = [6,47] # 6: Cerebellum, 47: Cerebellum
 
 # Crear la máscara de las ROIS en la imagen PET
 def get_ROI(atlas, list_of_ROIs):
@@ -178,7 +178,6 @@ ants.plot(T1, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, fi
 df_intensities.drop('ROIs_mask', axis=1, inplace=True)
 with open(os.path.join(output_path, subject_name, 'PET-TAU', method, 'stats', output_filename + '_stats.csv'), "w") as f:
     df_intensities.groupby("tags").mean().to_csv(f)
-
 
 
 # Vamos a hacer en este mismo script las concatenaciones de PET to T1 y T1 to Std
@@ -298,3 +297,5 @@ metric_file.write('Metric\tValue\n')
 for metric in metric_val:
     metric_file.write(metric + '\t' + str(metric_val[metric]) + '\n')
 metric_file.close()
+
+#TODO: RECORDAR QUE samrun -c "<comando>"
