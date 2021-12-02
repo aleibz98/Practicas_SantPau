@@ -1,17 +1,15 @@
 # imports
 import os
 
-# context settings: environ
-
-#directorio donde están todos los inputs (fsl subjects)
+# context settings: environment variables
 
 #TODO: completar los paths del cluster
-os.environ('SUBJECTS_DIR') = ""
+os.environ('SUBJECTS_DIR') = ""     # directorio donde están todos los inputs (fsl subjects)
 os.mkdir(os.getcwd() + "/outputs")
 os.environ('OUT_PATH') = os.path.join(os.getcwd(), "outputs")
 
 # data scructures
-methods = ['bbregister', 'mri-coreg', 'flair']
+methods = ['bbregister', 'mri-coreg', 'flair'] # Añadir vvregister
 dofs = ['6' ,'9' ,'12']
 inits = ['spm', 'fsl', 'coreg', 'rr']
 
