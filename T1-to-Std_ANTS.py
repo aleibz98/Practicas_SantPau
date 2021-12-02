@@ -17,12 +17,14 @@ init_values = {'Buena suerte para econtrarlos jaja'}
 parser = argparse.ArgumentParser(description='T1-to-Std_ANTS')
 parser.add_argument('--t1', required=True)
 parser.add_argument('--metric', nargs='+', choices=metric_values, default=metric_values)
-parser.add_argument('--method', choices=[], default='SyN') 
+parser.add_argument('--method', choices=[], default='SyNCC') 
 parser.add_argument('--brain', action='store_true', default=False)
 parser.add_argument('--init', default='', choices=init_values)
 
 # Setup variables and directories
-FS_path = '/usr/pubsw/packages/fsl/fsl-6.0.5/data/standard'
+#FS_path = '/usr/pubsw/packages/fsl/fsl-6.0.5/data/standard'
+FS_env = os.environ['FREESURFER_HOME']
+FS_path = os.path.join(FS_env,'/data/standard')
 StdTemplate_path = os.path.join(FS_path, 'MNI152_T1_2mm.nii.gz') #Must be a MNI152 template (FS dir)
 StdBrainTemplate_path = os.path.join(FS_path, 'MNI152_T1_2mm_brain.nii.gz') #Must be a MNI152 template (FS dir)
 
@@ -40,11 +42,12 @@ subject_name = [elem for elem in tmp if 'sub-' in elem][0]
 
 # Output filename
 if brain:
-    output_filename = subject_name + '_brain_' + '_' + method
+    output_filename = subject_name + '_brain_' + method
 else:
-    output_filename = subject_name + '_' + '_' + method
+    output_filename = subject_name + '_' + method
 
-output_path = '/home/student/Practicas/Practicas_SantPau/outs'
+output_path = os.environ.get('OUT_PATH')
+#output_path = '/home/student/Practicas/Practicas_SantPau/outs'
 
 # Generate the output filestructure
 os.makedirs(output_path,exist_ok=True)
@@ -60,10 +63,9 @@ if not os.path.exists(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'tra
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'transforms'))
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'orig-in-std'))
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'QC'))
-
+    os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'atlas'))
 else:
     print('Transformation matrix found, skipping ANTS registration')
-
 
 
 # Load the necessary files
@@ -122,3 +124,9 @@ metric_file.write('Metric\tValue\n')
 for metric in metric_val:
     metric_file.write(metric + '\t' + str(metric_val[metric]) + '\n')
 metric_file.close()
+
+# Copiaremos el atlas del sujeto fsl a la carpeta de outputs para facilitar procesos posteriores
+atlas_src = os.path.join(os.environ.get('SUBJECTS_DIR'), subject_name, 'mri', 'aparc+aseg.mgz')
+atlas_dst = os.path.join(output_path, subject_name, 'T1', 'ANTS' 'atlas', 'atlas.mgz')
+copyfile(atlas_src, atlas_dst)
+

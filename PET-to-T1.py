@@ -47,7 +47,8 @@ elif method == 'flair':
 else:
     print('Method not recognized')
 
-output_path = '/home/student/Practicas/Practicas_SantPau/outs'
+#output_path = '/home/student/Practicas/Practicas_SantPau/outs'
+output_path = os.environ.get('OUT_PATH')
 os.environ['SUBJECTS_DIR'] = input_dir
 
 # Generate the output filestructure
@@ -88,19 +89,19 @@ call = ''
 # Set and run the registration
 if method == 'bbregister':
     out_lta = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
-    call = 'bbregister --s ' + subject_name + ' --mov ' + PET_path + ' --lta ' + out_lta + ' --t1 ' + '--init-' + init + ' --' + dof
+    call = 'samrun -c bbregister --s ' + subject_name + ' --mov ' + PET_path + ' --lta ' + out_lta + ' --t1 ' + '--init-' + init + ' --' + dof
     print(call)
 
 elif method == 'mri-coreg':
     out_lta = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
-    call = 'mri_coreg --mov ' + PET_path + ' --lta ' + out_lta + ' --ref ' + T1_path + ' --dof ' + dof
+    call = 'samrun -c mri_coreg --mov ' + PET_path + ' --lta ' + out_lta + ' --ref ' + T1_path + ' --dof ' + dof
     print(call)
 
 elif method == 'flirt':
     pass
 
 # Execute call
-os.system(call) #TODO: cambiar por subprocess
+os.subprocess.call(call)
 
 # Generate transformation for QC
 apply_transform = ApplyVolTransform()
@@ -118,10 +119,6 @@ PETintoT1 = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', m
 # Save first QC image
 thresholded_PET = ants.threshold_image(PETintoT1, 1500)
 ants.plot(T1, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_reg_image.png'))
-
-# Get CSF
-#ants.plot(PETintoT1, overlay=mask_CSF, overlay_cmap='jet', overlay_alpha=1, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_QC.png'))
-
 
 # Use ANTsPy to generate the metrics and save the results
 metric_val = dict()
@@ -142,13 +139,12 @@ metric_file.close()
 
 
 # Cargar el atlas FSL
-# Copiar el atlas a orig
-#/home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/FTD-FPD109/mri/aparc+aseg.mgz
-atlas_path = ""
+# Path del atlas dentro del sujeto fsl
+atlas_path = os.path.join(output_path, subject_name, 'T1', 'ANTS' 'atlas', 'atlas.mgz')
 atlas = ants.image_read(atlas_path)
 
 # Añadir como parametro que ROIs se quieren usar
-ROIs = [8,47]
+ROIs = [8,47] #TODO: Check que estas sean las ROIs correctas
 
 # Crear la máscara de las ROIS en la imagen PET
 def get_ROI(atlas, list_of_ROIs):
@@ -156,7 +152,7 @@ def get_ROI(atlas, list_of_ROIs):
     mask = np.array(mask).reshape(atlas.shape)
     return mask
 
-ROI_mask = get_ROI(atlas, ROIS)
+ROI_mask = get_ROI(atlas, ROIs)
 df_intensities = pd.DataFrame(atlas.numpy().flatten(), columns=["tags"])
 df_intensities["PET_intensities"] = PETintoT1.numpy().flatten()
 df_intensities["ROIs_mask"] = ROI_mask.flatten()
@@ -171,7 +167,8 @@ df_intensities["scaled_PET_intensity"] = df_intensities["PET_intensities"] / mea
 scaled_PET = ants.from_numpy(df_intensities["scaled_PET_intensity"].values.reshape(atlas.shape), spacing=PETintoT1.spacing, direction=PETintoT1.direction, origin=PETintoT1.origin)
 
 # Guardar las imágenes normalizadas
-scaled_PET.save(os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + 'PET-to-T1_scaled.nii'))
+scaled_PET_path = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + 'PET-to-T1_scaled.nii')
+scaled_PET.save(scaled_PET_path)
 
 # Generar la imagen de QC con la PET escalada
 thresholded_PET = ants.threshold_image(scaled_PET, 1)
@@ -181,3 +178,101 @@ ants.plot(T1, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, fi
 df_intensities.drop('ROIs_mask', axis=1, inplace=True)
 with open(os.path.join(output_path, subject_name, 'PET-TAU', method, 'stats', output_filename + '_stats.csv'), "w") as f:
     df_intensities.groupby("tags").mean().to_csv(f)
+
+
+
+# Vamos a hacer en este mismo script las concatenaciones de PET to T1 y T1 to Std
+
+# Crear jerarquia de directorios dentro de PET-TAU > method > PET-to-T1Std
+os.makedirs(os.path.join(output_path, subject_name, 
+                        'PET-TAU', method, 'PET-to-T1std', 
+                        'QC'), exist_ok=True)
+os.makedirs(os.path.join(output_path, subject_name, 
+                        'PET-TAU', method, 'PET-to-T1std', 
+                        'transforms'), exist_ok=True)
+
+# Cargamos las matrices de transformación
+# PET-to-T1
+tmp = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
+
+# Como trabajamos con varias librerias, tenemos que transformar la matriz con el script lta_convert de freesurfer
+call = ['lta_convert', 
+        '--inlta', tmp, 
+        '--outitk', os.path.join(output_path, subject_name, 
+                                'PET-TAU', method, 'transforms', 
+                                output_filename + '_PET-to-T1.mat'),
+        '--src', PET_path,
+        '--trg', T1_path]
+os.subprocess.call(call)
+PET_to_T1_mat = os.path.join(output_path, subject_name, 
+                            'PET-TAU', method, 'transforms', 
+                            output_filename + '_PET-to-T1.mat')
+
+
+# T1-to-Std
+T1_to_Std_mat = ""
+T1_to_Std_gradmap = ""
+tmp = os.path.join(output_path, subject_name, 'PET-TAU', 'T1-std', 'transforms')
+if len(os.listdir(tmp)) == 2:
+    T1_to_Std_mat = os.listdir(tmp).filter(lambda x: 'fwd' in x)[0]
+elif len(os.listdir(tmp)) == 4:
+    T1_to_Std_mat = os.listdir(tmp).filter(lambda x: 'fwd.mat' in x)[0]
+    T1_to_Std_gradmap = os.listdir(tmp).filter(lambda x: 'fwd.nii.gz' in x)[0]
+elif len(os.listdir(tmp)) == 0:
+    print('No T1-to-Std transforms found, SHIT')
+
+
+# Cargar la imagen T1 std
+FS_env = os.environ['FREESURFER_HOME']
+FS_path = os.path.join(FS_env,'/data/standard')
+StdTemplate_path = os.path.join(FS_path, 'MNI152_T1_2mm.nii.gz') #Must be a MNI152 template (FS dir)
+StdTemplate = ants.image_read(StdTemplate_path)
+
+PET = ants.image_read(PET_path)
+
+# Transformar la imagen PET a la imagen T1-std
+# TODO: tener en cuenta de que no tiene que haber necesariamente un mapa de gradiente
+# PET Normal
+call = ['samrun', '-c', 'antsApplyTransform',
+        '-i', PET_path,
+        '-o', os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std.nii.gz'),
+        '-r', StdTemplate_path,
+        '-t', [T1_to_Std_gradmap, T1_to_Std_mat, PET_to_T1_mat]]
+os.subprocess.call(call)
+
+# PET escalado - en este caso usamos el PET que ya tenemos escalado en espacio T1 subject
+call = call = ['samrun', '-c', 'antsApplyTransform',
+        '-i', scaled_PET_path,
+        '-o', os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std_scaled.nii.gz'),
+        '-r', StdTemplate_path,
+        '-t', [T1_to_Std_gradmap, T1_to_Std_mat]]
+os.subprocess.call(call)
+
+PETintoStd = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std.nii.gz'))
+scaled_PETintoStd = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std_scaled.nii.gz'))
+
+# Generamos las imágenes de QC
+# PET Normal
+thresholded_PET = ants.threshold_image(PETintoStd, 1500)
+ants.plot(StdTemplate, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', 'QC', output_filename + '_reg_image.png'))
+
+# PET escalado
+thresholded_PET = ants.threshold_image(scaled_PETintoStd, 1)
+ants.plot(StdTemplate, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', 'QC', output_filename + '_reg_image_scaled.png'))
+
+# Compute metrics
+# Use ANTsPy to generate the metrics and save the results
+metric_val = dict()
+for metric in metrics:
+    if metric not in metric_values:
+        # Metric not found, skip
+        print('Metric ' + metric + ' not found, skipping')
+        continue
+    metric_val[metric] = ants.image_similarity(fixed_image=StdTemplate, moving_image=PETintoStd, metric_type=metric)
+
+# Save the metric values
+metric_file = open(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', 'QC', output_filename + '_metrics'), 'w')
+metric_file.write('Metric\tValue\n')
+for metric in metric_val:
+    metric_file.write(metric + '\t' + str(metric_val[metric]) + '\n')
+metric_file.close()
