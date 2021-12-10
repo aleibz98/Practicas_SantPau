@@ -14,7 +14,7 @@ import ants
 
 # Data structures with possible input values for given parameters
 metric_values = {'MeanSquares', 'Correlation', 'MattesMutualInformation', 'Demons', 'JointHistogramMutualInformation', 'ANTsNeighborhoodCorrelation'}
-method_values = {'bbregister', 'mri-coreg', 'flair'} #añadir vvregister
+method_values = {'bbregister', 'mri-coreg', 'flair', 'vvregister'}
 init_values = {'spm', 'fsl', 'coreg', 'rr'}
 dof_values = {'6' ,'9' ,'12'}
 
@@ -100,6 +100,10 @@ elif method == 'mri-coreg':
 elif method == 'flirt':
     pass
 
+elif method == 'vvregister':
+    pass
+    # TODO: Implement vvregister
+
 # Execute call
 os.subprocess.call(call)
 
@@ -116,7 +120,7 @@ apply_transform.run()
 T1 = ants.image_read(T1_path)
 PETintoT1 = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '_PET-to-T1.nii'))
 
-# Save first QC image
+# Save QC image - simple thresholded superposition 
 thresholded_PET = ants.threshold_image(PETintoT1, 1500)
 ants.plot(T1, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_reg_image.png'))
 
@@ -130,6 +134,7 @@ for metric in metrics:
     metric_val[metric] = ants.image_similarity(fixed_image=T1, moving_image=PETintoT1, metric_type=metric)
 
 # Save the metric values
+# TODO: format the output with JSON
 metric_file = open(os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_metrics'), 'w')
 metric_file.write('Metric\tValue\n')
 for metric in metric_val:
@@ -137,9 +142,8 @@ for metric in metric_val:
 metric_file.close()
 
 
-
 # Cargar el atlas FSL
-# Path del atlas dentro del sujeto fsl
+# Hemos guardado el atlas en la carpeta subject > T1 > ANTS > atlas > atlas.mgz
 atlas_path = os.path.join(output_path, subject_name, 'T1', 'ANTS' 'atlas', 'atlas.mgz')
 atlas = ants.image_read(atlas_path)
 
@@ -147,6 +151,7 @@ atlas = ants.image_read(atlas_path)
 ROIs = [6,47] # 6: Cerebellum, 47: Cerebellum
 
 # Crear la máscara de las ROIS en la imagen PET
+# TODO: El trozo que viene ahora se podría meter en una función porque lo repetimos más adelante
 def get_ROI(atlas, list_of_ROIs):
     mask = [ (x in list_of_ROIs) for x in atlas.numpy().reshape(-1)]
     mask = np.array(mask).reshape(atlas.shape)
@@ -183,6 +188,7 @@ with open(os.path.join(output_path, subject_name, 'PET-TAU', method, 'stats', ou
 # Vamos a hacer en este mismo script las concatenaciones de PET to T1 y T1 to Std
 
 # Crear jerarquia de directorios dentro de PET-TAU > method > PET-to-T1Std
+# Solo crearemos dos carpetas, QC y transforms
 os.makedirs(os.path.join(output_path, subject_name, 
                         'PET-TAU', method, 'PET-to-T1std', 
                         'QC'), exist_ok=True)
@@ -203,6 +209,8 @@ call = ['lta_convert',
         '--src', PET_path,
         '--trg', T1_path]
 os.subprocess.call(call)
+
+# Guardamos el path de la matriz de transformación
 PET_to_T1_mat = os.path.join(output_path, subject_name, 
                             'PET-TAU', method, 'transforms', 
                             output_filename + '_PET-to-T1.mat')
@@ -210,7 +218,7 @@ PET_to_T1_mat = os.path.join(output_path, subject_name,
 
 # T1-to-Std
 T1_to_Std_mat = ""
-T1_to_Std_gradmap = ""
+T1_to_Std_gradmap = ""  
 tmp = os.path.join(output_path, subject_name, 'PET-TAU', 'T1-std', 'transforms')
 if len(os.listdir(tmp)) == 2:
     T1_to_Std_mat = os.listdir(tmp).filter(lambda x: 'fwd' in x)[0]
@@ -221,7 +229,7 @@ elif len(os.listdir(tmp)) == 0:
     print('No T1-to-Std transforms found, SHIT')
 
 
-# Cargar la imagen T1 std
+# Cargar la template T1 Std
 FS_env = os.environ['FREESURFER_HOME']
 FS_path = os.path.join(FS_env,'/data/standard')
 StdTemplate_path = os.path.join(FS_path, 'MNI152_T1_2mm.nii.gz') #Must be a MNI152 template (FS dir)
@@ -231,7 +239,7 @@ PET = ants.image_read(PET_path)
 
 # Transformar la imagen PET a la imagen T1-std
 # TODO: tener en cuenta de que no tiene que haber necesariamente un mapa de gradiente
-# PET Normal
+# PET Normal - este es el que tendremos que escalar en el espacio Std
 call = ['samrun', '-c', 'antsApplyTransform',
         '-i', PET_path,
         '-o', os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std.nii.gz'),
@@ -247,13 +255,17 @@ call = call = ['samrun', '-c', 'antsApplyTransform',
         '-t', [T1_to_Std_gradmap, T1_to_Std_mat]]
 os.subprocess.call(call)
 
+# Este es el PET que tendremos que escalar en el espacio Std
 PETintoStd = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std.nii.gz'))
+
+# Este es el PET que ya hemos escalado en el espacio T1 subject
 scaled_PETintoStd = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std_scaled.nii.gz'))
 
 #TODO: Escalar la imagen PET en el espacio de la imagen T1-std
 #TODO: El atlas en este caso tendría que estar en el espacio Std
-#TODO: Seguramente trabajare con centiloid, así que en principio funciona diferente :)
+#TODO: Seguramente trabajaremos con centiloid, así que en principio funciona diferente :)
         # Igualmente, no debería cambiar demasido...espero...
+
 ROI_mask = get_ROI(atlas_std, ROIs)
 df_intensities_std = pd.DataFrame(atlas_std.numpy().flatten(), columns=["tags"])
 df_intensities_std["PET_intensities"] = PETintoT1.numpy().flatten()
