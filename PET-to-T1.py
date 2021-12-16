@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import os
+import sys
 import argparse
 from shutil import copyfile
 from shutil import rmtree
@@ -69,6 +70,7 @@ if not os.path.exists(os.path.join(output_path, 'PET-TAU', method, 'transforms',
 
 else:
     print('Transformation matrix found, skipping ANTS registration')
+    sys.exit(0)
 
 
 # Save the PET image in orig
@@ -76,7 +78,7 @@ shutil.copyfile(PET_path, os.path.join(output_path, subject_name, 'PET-TAU', 'or
 
 # Save the T1 image in orig
 T1_path = os.path.join(output_path, subject_name, 'PET-TAU', 'orig', subject_name + '_T1.mgz')
-shutil.copyfile(os.path.join(input_dir, subject_name, 'mri', 'T1.mgz'), T1_path)
+shutil.copyfile(os.path.join(input_dir, [elem for elem in os.listdir(input_dir) if subject_name in elem][0], 'mri', 'T1.mgz'), T1_path)
 
 src = os.path.join(output_path, subject_name, 'T1', 'ANTS')
 dst = os.path.join(output_path, subject_name, 'PET-TAU', 'T1-std')
@@ -89,23 +91,34 @@ call = ''
 # Set and run the registration
 if method == 'bbregister':
     out_lta = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
-    call = 'samrun -c "bbregister --s ' + subject_name + ' --mov ' + PET_path + ' --lta ' + out_lta + ' --t1 ' + '--init-' + init + ' --' + dof
-    print(call)
+    call = ['bbregister', 
+            '--s', subject_name, 
+            '--mov', PET_path, 
+            '--lta', out_lta, 
+            '--t1', 
+            '--init-' + init, 
+            '--' + dof]
+
+    call = 'samrun -c \"' + " ".join(call) + '\"' 
 
 elif method == 'mri-coreg':
     out_lta = os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '.lta')
-    call = 'samrun -c "mri_coreg --mov ' + PET_path + ' --lta ' + out_lta + ' --ref ' + T1_path + ' --dof ' + dof
-    print(call)
+    call = ['mri_coreg',
+            '--mov', PET_path,
+            '--lta', out_lta,
+            '--ref', T1_path,
+            '--dof', dof]
+    
+    call = 'samrun -c \"' + " ".join(call) + '\"' 
 
 elif method == 'flirt':
     pass
 
 elif method == 'vvregister':
     pass
-    # TODO: Implement vvregister
 
 # Execute call
-os.subprocess.call(call)
+os.system(call)
 
 # Generate transformation for QC
 apply_transform = ApplyVolTransform()
@@ -208,9 +221,10 @@ call = ['lta_convert',
                                 output_filename + '_PET-to-T1.mat'),
         '--src', PET_path,
         '--trg', T1_path]
-os.subprocess.call(call)
 
-# Guardamos el path de la matriz de transformación
+call = 'samrun -c \"' + " ".join(call) + '\"' 
+os.system(call)
+
 PET_to_T1_mat = os.path.join(output_path, subject_name, 
                             'PET-TAU', method, 'transforms', 
                             output_filename + '_PET-to-T1.mat')
@@ -229,8 +243,8 @@ elif len(os.listdir(tmp)) == 0:
     print('No T1-to-Std transforms found, SHIT')
 
 
-# Cargar la template T1 Std
-FS_env = os.environ['FREESURFER_HOME']
+# Cargar la imagen T1 std template
+FS_env = os.environ.get('FREESURFER_HOME')
 FS_path = os.path.join(FS_env,'/data/standard')
 StdTemplate_path = os.path.join(FS_path, 'MNI152_T1_2mm.nii.gz') #Must be a MNI152 template (FS dir)
 StdTemplate = ants.image_read(StdTemplate_path)
@@ -239,21 +253,25 @@ PET = ants.image_read(PET_path)
 
 # Transformar la imagen PET a la imagen T1-std
 # TODO: tener en cuenta de que no tiene que haber necesariamente un mapa de gradiente
-# PET Normal - este es el que tendremos que escalar en el espacio Std
-call = ['samrun', '-c', 'antsApplyTransform',
+# PET Normal
+call = ['antsApplyTransform',
         '-i', PET_path,
         '-o', os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std.nii.gz'),
         '-r', StdTemplate_path,
         '-t', [T1_to_Std_gradmap, T1_to_Std_mat, PET_to_T1_mat]]
-os.subprocess.call(call)
+
+call = 'samrun -c \"' + " ".join(call) + '\"' 
+os.system(call)
 
 # PET escalado - en este caso usamos el PET que ya tenemos escalado en espacio T1 subject
-call = call = ['samrun', '-c', 'antsApplyTransform',
+call = ['antsApplyTransform',
         '-i', scaled_PET_path,
         '-o', os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std_scaled.nii.gz'),
         '-r', StdTemplate_path,
         '-t', [T1_to_Std_gradmap, T1_to_Std_mat]]
-os.subprocess.call(call)
+
+call = 'samrun -c \"' + " ".join(call) + '\"' 
+os.system(call)
 
 # Este es el PET que tendremos que escalar en el espacio Std
 PETintoStd = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std.nii.gz'))
@@ -261,24 +279,16 @@ PETintoStd = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', 
 # Este es el PET que ya hemos escalado en el espacio T1 subject
 scaled_PETintoStd = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std_scaled.nii.gz'))
 
-#TODO: Escalar la imagen PET en el espacio de la imagen T1-std
-#TODO: El atlas en este caso tendría que estar en el espacio Std
-#TODO: Seguramente trabajaremos con centiloid, así que en principio funciona diferente :)
-        # Igualmente, no debería cambiar demasido...espero...
+# Escalar la imagen PET en el espacio de la imagen T1-std
+centiloid_path = os.path.join('/home/aalarcon/TFG/scripts/voi_CerebGry_2mm.nii') # Determinar donde guardaré el centiloid
+centiloid_mask = ants.image_read(centiloid_path)
 
-ROI_mask = get_ROI(atlas_std, ROIs)
-df_intensities_std = pd.DataFrame(atlas_std.numpy().flatten(), columns=["tags"])
-df_intensities_std["PET_intensities"] = PETintoT1.numpy().flatten()
-df_intensities_std["ROIs_mask"] = ROI_mask.flatten()
-
-# Computar la media de las ROIS
-mean_ROI_intensity_std = df_intensities_std.groupby("ROIs_mask").mean()
-mean_ROI_intensity_std = mean_ROI_intensity_std.reset_index()
-mean_ROI_intensity_std = mean_ROI_intensity_std["PET_intensities"][1]
+# Calculamos la media del centilod
+mean_ROI_intensity_std = [x for x,y in zip(PETintoStd, centiloid_mask) if y == 1].average()
 
 # Normalizar la imagen PET con la media de las ROIS
-df_intensities_std["scaled_PET_intensity"] = df_intensities_std["PET_intensities"] / mean_ROI_intensity_std
-scaled_PET_inStd = ants.from_numpy(df_intensities_std["scaled_PET_intensity"].values.reshape(atlas_std.shape), spacing=StdTemplate.spacing, direction=StdTemplate.direction, origin=StdTemplate.origin)
+scaled_PET_inStd = PETintoStd.flatten() / mean_ROI_intensity_std
+scaled_PET_inStd = ants.from_numpy(scaled_PETintoStd.reshape(StdTemplate.shape), spacing=StdTemplate.spacing, direction=StdTemplate.direction, origin=StdTemplate.origin)
 
 # Guardar las imágenes normalizadas
 scaled_PET_inStd_path = os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', 'transforms', output_filename + 'PET-to-Std_scaled_in_std.nii')
@@ -291,9 +301,8 @@ ants.plot(StdTemplate, overlay=thresholded_PET, overlay_cmap='jet', overlay_alph
 
 # PET escalado en Std
 thresholded_PET = ants.threshold_image(scaled_PET_inStd, 1)
-ants.plot(StdTemplate, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', 'QC', output_filename + '_reg_image_scaled_in_std.png'))
+ants.plot(StdTemplate, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', 'QC', output_filename + '_reg_image_scaled_in_Std.png'))
 
-# Compute metrics
 # Use ANTsPy to generate the metrics and save the results
 metric_val = dict()
 for metric in metrics:
@@ -309,5 +318,3 @@ metric_file.write('Metric\tValue\n')
 for metric in metric_val:
     metric_file.write(metric + '\t' + str(metric_val[metric]) + '\n')
 metric_file.close()
-
-#TODO: RECORDAR QUE samrun -c "<comando>"
