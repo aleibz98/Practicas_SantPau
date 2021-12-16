@@ -15,7 +15,7 @@ import ants
 
 # Data structures with possible input values for given parameters
 metric_values = {'MeanSquares', 'Correlation', 'MattesMutualInformation', 'Demons', 'JointHistogramMutualInformation', 'ANTsNeighborhoodCorrelation'}
-method_values = {'bbregister', 'mri-coreg', 'flair'} #añadir vvregister
+method_values = {'bbregister', 'mri-coreg', 'flair', 'vvregister'}
 init_values = {'spm', 'fsl', 'coreg', 'rr'}
 dof_values = {'6' ,'9' ,'12'}
 
@@ -133,7 +133,7 @@ apply_transform.run()
 T1 = ants.image_read(T1_path)
 PETintoT1 = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'transforms', output_filename + '_PET-to-T1.nii'))
 
-# Save first QC image
+# Save QC image - simple thresholded superposition 
 thresholded_PET = ants.threshold_image(PETintoT1, 1500)
 ants.plot(T1, overlay=thresholded_PET, overlay_cmap='jet', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_reg_image.png'))
 
@@ -147,6 +147,7 @@ for metric in metrics:
     metric_val[metric] = ants.image_similarity(fixed_image=T1, moving_image=PETintoT1, metric_type=metric)
 
 # Save the metric values
+# TODO: format the output with JSON
 metric_file = open(os.path.join(output_path, subject_name, 'PET-TAU', method, 'QC', output_filename + '_metrics'), 'w')
 metric_file.write('Metric\tValue\n')
 for metric in metric_val:
@@ -154,9 +155,8 @@ for metric in metric_val:
 metric_file.close()
 
 
-
 # Cargar el atlas FSL
-# Path del atlas dentro del sujeto fsl
+# Hemos guardado el atlas en la carpeta subject > T1 > ANTS > atlas > atlas.mgz
 atlas_path = os.path.join(output_path, subject_name, 'T1', 'ANTS' 'atlas', 'atlas.mgz')
 atlas = ants.image_read(atlas_path)
 
@@ -164,6 +164,7 @@ atlas = ants.image_read(atlas_path)
 ROIs = [6,47] # 6: Cerebellum, 47: Cerebellum
 
 # Crear la máscara de las ROIS en la imagen PET
+# TODO: El trozo que viene ahora se podría meter en una función porque lo repetimos más adelante
 def get_ROI(atlas, list_of_ROIs):
     mask = [ (x in list_of_ROIs) for x in atlas.numpy().reshape(-1)]
     mask = np.array(mask).reshape(atlas.shape)
@@ -200,6 +201,7 @@ with open(os.path.join(output_path, subject_name, 'PET-TAU', method, 'stats', ou
 # Vamos a hacer en este mismo script las concatenaciones de PET to T1 y T1 to Std
 
 # Crear jerarquia de directorios dentro de PET-TAU > method > PET-to-T1Std
+# Solo crearemos dos carpetas, QC y transforms
 os.makedirs(os.path.join(output_path, subject_name, 
                         'PET-TAU', method, 'PET-to-T1std', 
                         'QC'), exist_ok=True)
@@ -230,7 +232,7 @@ PET_to_T1_mat = os.path.join(output_path, subject_name,
 
 # T1-to-Std
 T1_to_Std_mat = ""
-T1_to_Std_gradmap = ""
+T1_to_Std_gradmap = ""  
 tmp = os.path.join(output_path, subject_name, 'PET-TAU', 'T1-std', 'transforms')
 if len(os.listdir(tmp)) == 2:
     T1_to_Std_mat = os.listdir(tmp).filter(lambda x: 'fwd' in x)[0]
@@ -262,7 +264,7 @@ call = 'samrun -c \"' + " ".join(call) + '\"'
 os.system(call)
 
 # PET escalado - en este caso usamos el PET que ya tenemos escalado en espacio T1 subject
-call = call = ['antsApplyTransform',
+call = ['antsApplyTransform',
         '-i', scaled_PET_path,
         '-o', os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std_scaled.nii.gz'),
         '-r', StdTemplate_path,
@@ -271,7 +273,10 @@ call = call = ['antsApplyTransform',
 call = 'samrun -c \"' + " ".join(call) + '\"' 
 os.system(call)
 
+# Este es el PET que tendremos que escalar en el espacio Std
 PETintoStd = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std.nii.gz'))
+
+# Este es el PET que ya hemos escalado en el espacio T1 subject
 scaled_PETintoStd = ants.image_read(os.path.join(output_path, subject_name, 'PET-TAU', method, 'PET-to-T1std', output_filename + '_PET-to-T1std_scaled.nii.gz'))
 
 # Escalar la imagen PET en el espacio de la imagen T1-std
@@ -280,7 +285,6 @@ centiloid_mask = ants.image_read(centiloid_path)
 
 # Calculamos la media del centilod
 mean_ROI_intensity_std = [x for x,y in zip(PETintoStd, centiloid_mask) if y == 1].average()
-
 
 # Normalizar la imagen PET con la media de las ROIS
 scaled_PET_inStd = PETintoStd.flatten() / mean_ROI_intensity_std
