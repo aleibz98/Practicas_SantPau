@@ -10,6 +10,8 @@ from shutil import rmtree
 from nipype.interfaces.freesurfer import ApplyVolTransform
 import ants
 
+print("Executing PET-to-T1")
+
 # llamada ejemplo bbregister: python PET-to-T1.py --method bbregister --dof 6 --init rr -m /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii -s sub-003S6257 -d /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
 # llamada ejemplo mri-coreg: python PET-to-T1.py --method mri-coreg --dof 6 -m /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/co-registre_PET-TAU/sub-003S6257/sub-003S6257_ses-m00_AV1451.nii -s sub-003S6257 -d /home/student/Practicas/Practicas_SantPau/primeras_pruebas_freesurfer/data/out_recon-all
 
@@ -49,7 +51,8 @@ else:
     print('Method not recognized')
 
 #output_path = '/home/student/Practicas/Practicas_SantPau/outs'
-output_path = os.environ.get('OUT_PATH')
+#output_path = os.environ.get('OUT_PATH')
+output_path = '/home/aalarcon/TFG/outs/'
 os.environ['SUBJECTS_DIR'] = input_dir
 
 # Generate the output filestructure
@@ -155,6 +158,7 @@ for metric in metric_val:
 metric_file.close()
 
 
+
 # Cargar el atlas FSL
 # Hemos guardado el atlas en la carpeta subject > T1 > ANTS > atlas > atlas.mgz
 atlas_path = os.path.join(output_path, subject_name, 'T1', 'ANTS' 'atlas', 'atlas.mgz')
@@ -164,7 +168,6 @@ atlas = ants.image_read(atlas_path)
 ROIs = [6,47] # 6: Cerebellum, 47: Cerebellum
 
 # Crear la máscara de las ROIS en la imagen PET
-# TODO: El trozo que viene ahora se podría meter en una función porque lo repetimos más adelante
 def get_ROI(atlas, list_of_ROIs):
     mask = [ (x in list_of_ROIs) for x in atlas.numpy().reshape(-1)]
     mask = np.array(mask).reshape(atlas.shape)
@@ -232,7 +235,7 @@ PET_to_T1_mat = os.path.join(output_path, subject_name,
 
 # T1-to-Std
 T1_to_Std_mat = ""
-T1_to_Std_gradmap = ""  
+T1_to_Std_gradmap = ""
 tmp = os.path.join(output_path, subject_name, 'PET-TAU', 'T1-std', 'transforms')
 if len(os.listdir(tmp)) == 2:
     T1_to_Std_mat = os.listdir(tmp).filter(lambda x: 'fwd' in x)[0]
@@ -244,7 +247,8 @@ elif len(os.listdir(tmp)) == 0:
 
 
 # Cargar la imagen T1 std template
-FS_env = os.environ.get('FREESURFER_HOME')
+#FS_env = os.environ.get('FREESURFER_HOME')
+FS_env = '/usr/pubsw/packages/fsl/fsl-6.0.4/'
 FS_path = os.path.join(FS_env,'/data/standard')
 StdTemplate_path = os.path.join(FS_path, 'MNI152_T1_2mm.nii.gz') #Must be a MNI152 template (FS dir)
 StdTemplate = ants.image_read(StdTemplate_path)
@@ -285,6 +289,7 @@ centiloid_mask = ants.image_read(centiloid_path)
 
 # Calculamos la media del centilod
 mean_ROI_intensity_std = [x for x,y in zip(PETintoStd, centiloid_mask) if y == 1].average()
+
 
 # Normalizar la imagen PET con la media de las ROIS
 scaled_PET_inStd = PETintoStd.flatten() / mean_ROI_intensity_std

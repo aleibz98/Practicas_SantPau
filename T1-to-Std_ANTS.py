@@ -8,6 +8,8 @@ import re
 from shutil import copyfile
 from shutil import rmtree
 
+print("Executing T1-to-Std")
+
 # Data structures with possible input values for given parameters
 metric_values = {'MeanSquares', 'Correlation', 'MattesMutualInformation', 'Demons', 'JointHistogramMutualInformation', 'ANTsNeighborhoodCorrelation'}
 method_values = {'Translation', 'Rigid', 'Similarity', 'QuickRigid', 'DenseRigid', 'BOLDRigid',
@@ -25,8 +27,10 @@ parser.add_argument('--init', default='', choices=init_values)
 
 # Setup variables and directories
 #FS_path = '/usr/pubsw/packages/fsl/fsl-6.0.5/data/standard'
-FS_env = os.environ.get('FREESURFER_HOME')
-FS_path = os.path.join(FS_env,'/data/standard')
+#FS_env = os.environ.get('FSL_DIR')
+FS_env = '/usr/pubsw/packages/fsl/fsl-6.0.4/'
+FS_path = FS_env + '/data/standard'
+
 StdTemplate_path = os.path.join(FS_path, 'MNI152_T1_2mm.nii.gz') #Must be a MNI152 template (FS dir)
 StdBrainTemplate_path = os.path.join(FS_path, 'MNI152_T1_2mm_brain.nii.gz') #Must be a MNI152 template (FS dir)
 
@@ -47,8 +51,9 @@ if brain:
 else:
     output_filename = subject_name + '_' + method
 
-output_path = os.environ.get('OUT_PATH')
+#output_path = os.environ.get('OUT_PATH')
 #output_path = '/home/student/Practicas/Practicas_SantPau/outs'
+output_path = "/home/aalarcon/TFG/outs/"
 
 # Generate the output filestructure
 os.makedirs(output_path,exist_ok=True)
@@ -74,23 +79,37 @@ T1 = ants.image_read(T1_path)
 
 # Save the T1 image
 T1.to_file(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'orig', 'T1.nii.gz'))
+#copyfile(T1, os.path.join(output_path, subject_name, 'T1', 'ANTS', 'orig', 'T1.nii.gz'))
 
-
-if brain:
-    StdTemplate = ants.image_read(StdBrainTemplate_path)
-else:
-    StdTemplate = ants.image_read(StdTemplate_path)
+try:
+    if brain:
+        StdTemplate = ants.image_read(StdBrainTemplate_path)
+    else:
+        StdTemplate = ants.image_read(StdTemplate_path)
+except:
+    print("error cargando la template")
+    sys.exit(0)
 
 # Perform registration
-registered_image = ants.registration(
-    fixed=StdTemplate, 
-    moving=T1, 
-    type_of_transform=method
-    )
+try:
+    print('Performing registration')
+    registered_image = ants.registration(
+        fixed=StdTemplate, 
+        moving=T1, 
+        type_of_transform=method
+        )
+    print('Registration performed')
+except:
+    print("failed registration")
+    sys.exit(0)
 
 # Registration plot
-ants.plot(StdTemplate, overlay=registered_image['warpedmovout'], overlay_cmap='hot', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'T1', 'ANTS', 'QC', output_filename + '_reg_image.png'))
-
+try:
+    ants.plot(StdTemplate, overlay=registered_image['warpedmovout'], overlay_cmap='hot', overlay_alpha=0.5, filename=os.path.join(output_path, subject_name, 'T1', 'ANTS', 'QC', output_filename + '_reg_image.png'))
+except:
+    print("Fallo mientras se guardaba la imagen registrada")
+    sys.exit(0)
+    
 #Save registration files
 registered_image['warpedmovout'].to_file(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'orig-in-std', output_filename + '_reg.nii.gz'))
 
@@ -127,7 +146,9 @@ for metric in metric_val:
 metric_file.close()
 
 # Copiaremos el atlas del sujeto fsl a la carpeta de outputs para facilitar procesos posteriores
+os.environ['SUBJECTS_DIR'] = '/home/aalarcon/TFG/freesurfers/'
 atlas_src = os.path.join(os.environ.get('SUBJECTS_DIR'), [elem for elem in os.listdir(os.environ.get('SUBJECTS_DIR')) if subject_name in elem][0], 'mri', 'aparc+aseg.mgz')
-atlas_dst = os.path.join(output_path, subject_name, 'T1', 'ANTS' 'atlas', 'atlas.mgz')
-copyfile(atlas_src, atlas_dst)
+atlas_dst = os.path.join(output_path, subject_name, 'T1', 'ANTS', 'atlas', 'atlas.mgz')
+os.symlink(atlas_src, atlas_dst)
 
+sys.exit(0)
