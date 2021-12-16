@@ -13,6 +13,9 @@ for subject in os.listdir(outs_path):
             if method in methods:
                 for doc in os.listdir(os.path.join(outs_path, subject, 'PET-TAU', method)):
                     if doc.endswith(".png"):
-                        shutil.copy(os.path.join(outs_path, subject, 'PET-TAU', method, doc),
-                                    os.path.join('/home/aalarcon/TFG/QC-collector/', doc))
-
+                        src = os.path.join(outs_path, subject, 'PET-TAU', method, doc)
+                        dst = os.path.join('/home/aalarcon/TFG/QC-collector/', doc)
+                        try:
+                            os.symlink(src, dst)
+                        except FileExistsError:
+                            print("File already exists")
