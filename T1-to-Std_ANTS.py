@@ -2,7 +2,9 @@ import ants
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import sys
 import argparse
+import re
 from shutil import copyfile
 from shutil import rmtree
 
@@ -17,13 +19,13 @@ init_values = {'Buena suerte para econtrarlos jaja'}
 parser = argparse.ArgumentParser(description='T1-to-Std_ANTS')
 parser.add_argument('--t1', required=True)
 parser.add_argument('--metric', nargs='+', choices=metric_values, default=metric_values)
-parser.add_argument('--method', choices=[], default='SyNCC') 
+parser.add_argument('--method', choices=method_values, default='SyNCC') 
 parser.add_argument('--brain', action='store_true', default=False)
 parser.add_argument('--init', default='', choices=init_values)
 
 # Setup variables and directories
 #FS_path = '/usr/pubsw/packages/fsl/fsl-6.0.5/data/standard'
-FS_env = os.environ['FREESURFER_HOME']
+FS_env = os.environ.get('FREESURFER_HOME')
 FS_path = os.path.join(FS_env,'/data/standard')
 StdTemplate_path = os.path.join(FS_path, 'MNI152_T1_2mm.nii.gz') #Must be a MNI152 template (FS dir)
 StdBrainTemplate_path = os.path.join(FS_path, 'MNI152_T1_2mm_brain.nii.gz') #Must be a MNI152 template (FS dir)
@@ -36,9 +38,8 @@ brain = parser.parse_args().brain
 init = parser.parse_args().init
 
 # Get subject name
-tmp = T1_path.split('/')
+tmp = re.split('/|_', T1_path)
 subject_name = [elem for elem in tmp if 'sub-' in elem][0]
-
 
 # Output filename
 if brain:
@@ -57,7 +58,7 @@ os.makedirs(os.path.join(output_path, subject_name), exist_ok=True)
 if not os.path.exists(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'transforms', output_filename + '_fwd.mat')):
     # In the event we can't find the transform matrix, we should delete the ANTS directory and regenerate it
     rmtree(os.path.join(output_path, subject_name, 'T1', 'ANTS'), ignore_errors=True)
-    os.makedirs(os.path.join(output_path, subject_name, 'T1'), exist_ok=True)
+    os.makedirs(os.path.join(output_path, subject_name, 'T1'), exist_ok=True)   
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS'))
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'orig'))
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'transforms'))
@@ -66,8 +67,7 @@ if not os.path.exists(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'tra
     os.makedirs(os.path.join(output_path, subject_name, 'T1', 'ANTS', 'atlas'))
 else:
     print('Transformation matrix found, skipping ANTS registration')
-    #TODO: Completar para que realmente se salte lo que no tenemos que hacer
-
+    sys.exit(0) #TODO: Hacemos el sys.exit(0) directamente o que?
 
 # Load the necessary files
 T1 = ants.image_read(T1_path)
@@ -127,7 +127,7 @@ for metric in metric_val:
 metric_file.close()
 
 # Copiaremos el atlas del sujeto fsl a la carpeta de outputs para facilitar procesos posteriores
-atlas_src = os.path.join(os.environ.get('SUBJECTS_DIR'), subject_name, 'mri', 'aparc+aseg.mgz')
+atlas_src = os.path.join(os.environ.get('SUBJECTS_DIR'), [elem for elem in os.listdir(os.environ.get('SUBJECTS_DIR')) if subject_name in elem][0], 'mri', 'aparc+aseg.mgz')
 atlas_dst = os.path.join(output_path, subject_name, 'T1', 'ANTS' 'atlas', 'atlas.mgz')
 copyfile(atlas_src, atlas_dst)
 
