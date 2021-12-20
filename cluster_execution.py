@@ -25,7 +25,7 @@ subjects = os.listdir(os.environ.get('SUBJECTS_DIR'))
 input_dir = os.environ.get('SUBJECTS_DIR')
 
 # generate all T1-to-Std calls
-if True:
+if False:
     for subject in subjects:
         print('T1-to-Std for subject ' + subject)
         t1_path = os.path.join(input_dir, subject, 'mri', 'T1.mgz')
@@ -41,7 +41,7 @@ if True:
 # async wait?
 
 # generate all PET-to-T1 calls
-if False:
+if True:
     for s,m,d,i in [(a,b,c,d) for a in subjects for b in methods for c in dofs for d in inits]:
         subject_name = [elem for elem in s.split('_') if 'sub-' in elem][0]
         PET_file = [elem for elem in os.listdir(PET_dir) if subject_name in elem][0]
