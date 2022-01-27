@@ -1,0 +1,187 @@
+---
+title: "TFG"
+author: "Alejandro Alarcón"
+date: "14/1/2022"
+output: pdf_document
+---
+
+```{r}
+requiredPackages <- c("effects","FactoMineR","car", "factoextra","RColorBrewer","ggplot2","dplyr","ggmap","ggthemes","knitr", "missMDA", "epiDisplay", "games")
+
+package.check <- lapply(requiredPackages, FUN = function(x) {
+  if (!require(x, character.only = TRUE)) {
+    install.packages(x, dependencies = TRUE)
+    library(x, character.only = TRUE)
+  }
+})
+#verify they are loaded
+search()
+```
+
+```{r}
+df_img_sim <- read_csv("/Users/aleibz/Practicas_SantPau/Practicas_SantPau/image_similarity_dataset_new.csv")
+```
+
+Transformación a factores
+```{r}
+df_img_sim$Subject <- factor(df_img_sim$Subject)
+df_img_sim$method <- factor(df_img_sim$method)
+
+df_img_sim$init[is.na(df_img_sim$init)] <- "mri-coreg"
+df_img_sim$init <- factor(df_img_sim$init)
+df_img_sim$dofs <- factor(df_img_sim$dofs)
+```
+
+```{r}
+metrics <- c("ANTsNeighborhoodCorrelation", "Correlation", "MeanSquares", "MattesMutualInformation", "Demons", "JointHistogramMutualInformation")
+```
+
+Missings y errores
+```{r}
+summary(df_img_sim)
+
+# Hay dos tipos de fallos en el dataset:
+#   Individuos para los que fallan todas las variables
+#   Valores Inf en la métrica Demons para algunos individuos
+
+# De esta manera, filtrando solo con la variable Demons podemos obtener todos estos individuos que catalogaremos como errores
+
+# Más adelante decidiremos si lo más adecuado es imputarlos o eliminarlos.
+inds <- which(!is.finite(df_img_sim$Demons))
+```
+
+## Catdes
+
+En primer lugar, vamos a aplicar la función de catdes (categorical description) para analizar la distribución de las métricas dependiendo del método que se ha aplicado para realizar el registro.
+
+```{r}
+method.catdes <- catdes(df_img_sim[-inds,c("method", metrics)], 1)
+```
+
+En primer lugar, podemos ver como en efecto, los valores de las métricas son variables que diferencian de manera significativa los distintos métodos.
+```{r}
+method.catdes$quanti.var
+```
+
+Además, podemos ver como en los casos de vvregister la mayoría de las métricas adquieren valores similares a los esperados, excepto en el caso de MMI. Sin embargo, en el caso de mri-coreg y bbregister se puede apreciar como todas las métricas tienes valores significativamente distintos a los esperados.
+
+De este modo, ahora debemos determinar cuáles de estos valores hay que maximizar y cuales hay que maximizar y cuales hay que minimizar para determinar la mejor calidad de registro.
+
+Si observamos la documentación de las funciones de image similarity de la libreria de ANTS, podemos ver como todas las funciones se han programado para devolver un resultado qeu se tenga que minimizar, de modo que para todas las métricas, debemos buscar los v.test más pequeños.
+
+Podemos ver como el mejor método es en efecto mri-coreg, ya que 4 de las métricas aparecen con valores inferiores a la media global, mientras que la desviación para las que aparecen por encima, aunque estadísticamente relevante, es muy pequeña.
+
+```{r}
+method.catdes$quanti
+```
+
+Sin embargo, si por otro lado realizamos el estudio sobre las inicializaciones que se han usado:
+
+```{r}
+init.catdes <- catdes(df_img_sim[-inds,c("init", metrics)], 1)
+```
+
+Podemos ver otra vez como todas las variables parecen mantener su relevancia estadística.
+```{r}
+init.catdes$quanti.var
+```
+
+Sin embargo, si volvemos a analizar como se distribuyen las métricas dependiendo del tipo de inicialización, podemos ver como hay dos casos específicos donde las medias de la mayoría de las métricas son inferiores que las globales. Estos casos son 'mri-coreg' y 'rr'.
+
+Cabe recordar que mri-coreg no es un tipo de inicialización, es el valor que hemos puesto a todos lo registros que se han realizacodo con el método mri-coreg ya que este no requiere ningún parámetro de inicialización.
+```{r}
+init.catdes$quanti
+```
+
+
+Vamos a proceder a añadir la interacción entre la variable método con la variable init ya que parece ser relevante.
+```{r}
+df_img_sim["method:init"] <- df_img_sim$method : df_img_sim$init
+method_init.catdes <- catdes(df_img_sim[-inds,c("method:init", metrics)], 1)
+method_init.catdes$quanti.var
+method_init.catdes$quanti
+method_init.catdes$quanti[c("bbregister:rr", "vvregister:rr", "mri-coreg:mri-coreg")]
+```
+
+```{r}
+inds2 <- which(df_img_sim$`method:init` %in% c("bbregister:rr", "vvregister:rr", "mri-coreg:mri-coreg"))
+inds3 <- setdiff(inds2,inds)
+
+df_img_sim["method:init:dofs"] <- df_img_sim$method : df_img_sim$init : df_img_sim$dofs
+method_init_dofs.catdes <- catdes(df_img_sim[inds4,c("method:init:dofs", metrics)], 1)
+method_init_dofs.catdes$quanti.var
+method_init_dofs.catdes$quanti
+```
+
+LA MEJOR CONFIGURACIÓN ES         MRI-COREG : MRI-COREG : 9DOFS.
+
+
+INCLUIMOS LA PARTE DE DEMOGRPHICS
+```{r}
+library(readxl)
+demografics <- read_excel("Practicas_SantPau/Practicas_SantPau/demografics.xls", 
+     col_types = c("skip", "skip", "skip", 
+         "skip", "text", "skip", "skip", "skip", 
+         "skip", "skip", "text", "numeric", 
+         "text", "numeric", "skip", "skip", 
+         "skip", "skip", "skip", "skip", "skip", 
+         "skip", "skip", "skip", "skip", "skip", 
+         "skip", "skip", "skip", "skip"))
+View(demografics) 
+```
+
+Procedemos a preparar los dos dataframes para hacer el merge.
+```{r}
+# Modificamos la columna de sujeto de demografics para meterle el sub- delante.
+demografics$Clustername <- paste("sub-", demografics$Clustername, sep="")
+
+# Convertimos a factor las variables categóricas.
+demografics$Clustername <- factor(demografics$Clustername)
+demografics$DX_bl <- factor(demografics$DX_bl)
+demografics$PTGENDER <- factor(demografics$PTGENDER)
+demografics$APOE4 <- factor(demografics$APOE4)
+
+colnames(demografics) <- c("Subject", "Diagnostic", "Age", "Gender", "APOE4")
+
+# Hacemos el merge usando el nombre de sujeto como clave.
+new_df <- merge(df_img_sim, demografics, by = "Subject")
+```
+
+```{r}
+inds4 <- which(is.na(new_df$Diagnostic) | !is.finite(new_df$Demons))
+```
+
+```{r}
+diag.catdes <- catdes(new_df[-inds4,c("Diagnostic", metrics)], 1)
+diag.catdes$quanti.var
+diag.catdes$quanti
+```
+
+```{r}
+inds5 <- which(new_df$`method:init` %in% c("bbregister:rr", "vvregister:rr", "mri-coreg:mri-coreg"))
+inds5 <- setdiff(inds5,inds4)
+
+diag.catdes <- catdes(new_df[inds5,c("Diagnostic", metrics)], 1)
+diag.catdes$quanti.var
+diag.catdes$quanti
+```
+
+
+
+
+
+
+Vamos a re-centrar la estructura del proyecto.
+
+Vamos a empezar re-formulando las preguntas que nos vamos a hacer en este proyecto para llevar a cabo el análisis estadístico.
+
+Mail Víctor
+1) Comparació entre mètodes de registre (image similarity):
+Fent servir R. Fer un loop que et fagi:
+  · per a cada mesura de similarity (e.g NMI, CC, etc), fer un ANOVA on comparis totes les permutacions. Es a dir, comprararas MNI entre permutacio1 (bbregifer, 6dof, init-fsl) vs permutacio2 (mri_coreg) vs permutacio3 (bbregister, 6dof, init-rr) vs etc.
+   · Mirar si alguna de les comparacions que fagis (tindràs tantes comparacions com mesures de similaritat), hi ha alguna diferencia significatica (pvalue < 0.05).
+   · Gestionar com guardar els resultats perquè una exploració ràpida trobem quines mesures de similaritat
+   
+   
+
+
