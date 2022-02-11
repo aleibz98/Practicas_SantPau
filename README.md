@@ -10,10 +10,10 @@ El contenido de este repositorio se puede dividir en tres partes:
   Introducción y tutoriales
    Ya que el campo de la neurociencia es un sector muy específico, es necesaria la introducción de conceptos del campo, librerías específicas y metodologías.
 
-  Pipeline de ejecución de procesos de registro de neuroimagen
+  Pipeline de ejecución de procesos de registro de neuroimagen:
     En esta parte, se generan los scripts en python necesarios para realizar pipeline completo necesario para llevar a cabo el proceso de registro de imágenes cerebrales. Este proceso consiste en la transformación de volúmenes generando una alineación que permita una extracción de información precisa, minimizando el error. Además, se guardan las métricas necesariaas para la parte analítica así como imégenes que servirán para el control de la calidad de las ejecuciones. Estos scripts se han adaptado para su ejecución en un cluster reduciendo el tiempo de ejecución de 20 a 2 días.
 
-  Recolección de los datos obtenidos y análisis estadístico
+  Recolección de los datos obtenidos y análisis estadístico:
     Una vez se han realizado todas las ejecuciones necesárias, se preocede a la recolección de las métricas y de las imágenes de control de calidad. Posteriormente, se tranforman los datos para facilitar su gestión y finalmente se procede a la realización de 5 estudios.
     
     Estudio 1: Determinar las 10 mejores configuraciones de parámetros según 2 de las métricas  que se han calculado.
